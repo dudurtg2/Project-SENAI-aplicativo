@@ -1,4 +1,4 @@
-package com.bora;
+package com.bora.Principal.Inicial;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,9 @@ import android.os.Handler;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.bora.Autenticacao.Login.LoginActivity;
+import com.bora.R;
 
 public class SplashActivily extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class SplashActivily extends AppCompatActivity {
         setContentView(R.layout.activity_splash_activily);
         new Handler(getMainLooper()).postDelayed(()-> {
             finish();
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }, 2000);
     }
 }

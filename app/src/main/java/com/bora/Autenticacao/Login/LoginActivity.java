@@ -1,16 +1,13 @@
-package com.bora;
+package com.bora.Autenticacao.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
+import com.bora.Autenticacao.Cadastro.CadastroActivity;
+import com.bora.R;
 import com.bora.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
