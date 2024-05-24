@@ -3,22 +3,13 @@ package com.bora.Autenticacao.Cadastro;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.bora.Autenticacao.Login.LoginActivity;
+import com.bora.Autenticacao.RecuperSenhaActivity;
 import com.bora.R;
 import com.bora.databinding.ActivityCadastroBinding;
-import com.bora.databinding.ActivityLoginBinding;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class CadastroActivity extends AppCompatActivity {
@@ -37,6 +28,7 @@ public class CadastroActivity extends AppCompatActivity {
         });
         auth = FirebaseAuth.getInstance();
         binding.btnCadastrar.setOnClickListener(v -> {validarDados();});
+        binding.ClickRecuperacao.setOnClickListener(v -> { startActivity(new Intent(this, RecuperSenhaActivity.class)); });
     }
 
     private void validarDados(){
