@@ -32,6 +32,7 @@
  -  Mario
  -  Guilheme
  -  Ester
+ -  C. Eduardo
 
 
 Agradecemos por visitar nosso repositório e por seu interesse no nosso projeto. Fique à vontade para clonar, explorar e fornecer feedback!
