@@ -1,31 +1,88 @@
 package com.bora.Principal;
 
 import android.os.Bundle;
-import android.view.View;
-
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+import com.bora.Funcoes.DAO.UsuarioDAO;
+import com.bora.Funcoes.Verificadores;
 import com.bora.R;
-import com.google.firebase.Firebase;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.bora.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
-
+    private ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+
+        binding.BTMINSERTE.setOnClickListener(v -> {
+            salvar();
         });
 
     }
 
+    private void salvar() {
+        Verificadores verificadores = new Verificadores();
+
+        UsuarioDAO usuario = new UsuarioDAO(this);
+
+        EditText[] fields = new EditText[]{
+                binding.Editnome,
+                binding.Editendereco,
+                binding.Edittelefone,
+        };
+
+        for (EditText field : fields) {
+            if (field.getText().toString().isEmpty()) {
+                Toast.makeText(this, "Nome, Telefone e Endereço são obrigatórios", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        String tabela;
+        String cpf;
+        String rg;
+
+        if (!binding.EditCPF.getText().toString().isEmpty()){
+            if (!Verificadores.verificarCPF(binding.EditCPF.getText().toString())){
+                Toast.makeText(this, "CPF inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                cpf = binding.EditCPF.getText().toString();
+            }
+        } else {
+            cpf = binding.EditCPF.getText().toString();
+        }
+
+        if (!binding.EditRG.getText().toString().isEmpty()){
+            if (!Verificadores.verificarRG(binding.EditCPF.getText().toString())){
+                Toast.makeText(this, "RG inválido", Toast.LENGTH_SHORT).show();
+                return;
+            }else{
+                rg = binding.EditRG.getText().toString();
+            }
+        } else {
+            rg = binding.EditRG.getText().toString();
+        }
+
+        if (binding.EditTabela.getText().toString().isEmpty()){
+            tabela = binding.EditTabela.getText().toString();
+        }else{
+            tabela = "usuarios";
+        }
+
+        String nome = binding.Editnome.getText().toString();
+        String endereco = binding.Editendereco.getText().toString();
+        String telefone = binding.Edittelefone.getText().toString();
+        String dataNascimento = binding.EditdataNascimento.getText().toString();
+
+        usuario.usuarioDTO(tabela,nome, endereco, telefone, dataNascimento, cpf, rg);
+
+        Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
+    }
 }

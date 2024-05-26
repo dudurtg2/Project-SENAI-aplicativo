@@ -8,6 +8,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bora.Autenticacao.Login.LoginActivity;
+import com.bora.Principal.MainActivity;
 import com.bora.R;
 
 public class SplashActivily extends AppCompatActivity {
