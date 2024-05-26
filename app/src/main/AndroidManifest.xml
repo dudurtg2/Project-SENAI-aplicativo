@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Bora"
         tools:targetApi="31">
         <activity
+            android:name=".Principal.resultaUsuario"
+            android:exported="false" />
+        <activity
             android:name=".Autenticacao.RecuperSenhaActivity"
             android:exported="false" />
         <activity

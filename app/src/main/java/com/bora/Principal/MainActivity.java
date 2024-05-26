@@ -1,11 +1,13 @@
 package com.bora.Principal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Funcoes.DAO.UsuarioDAO;
+
+import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
 import com.bora.Funcoes.Verificadores;
 import com.bora.R;
 import com.bora.databinding.ActivityMainBinding;
@@ -22,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
         binding.BTMINSERTE.setOnClickListener(v -> {
             salvar();
+        });
+
+        binding.imageButtonBusca.setOnClickListener(v -> {
+            startActivity(new Intent(this, resultaUsuario.class));
         });
 
     }

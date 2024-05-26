@@ -1,19 +1,16 @@
-package com.bora.Funcoes.DAO;
+package com.bora.Funcoes.DAO.Usuario;
 
 import android.content.Context;
 import android.widget.Toast;
-
-import com.bora.Funcoes.DTO.UsuarioDTO;
-import com.bora.Principal.MainActivity;
+import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
-import java.util.Map;
 
 public class UsuarioDAO {
     private Context context;
+
 
     public UsuarioDAO(Context context) {
         this.context = context;
@@ -38,6 +35,7 @@ public class UsuarioDAO {
 
 
     public void writeNewUser(String tabela, UsuarioDTO usuarioDTO) {
+        FirebaseFirestore FDBD = FirebaseFirestore.getInstance();
         FirebaseDatabase DBD = FirebaseDatabase.getInstance();
         DatabaseReference InsertDBD = DBD.getReference(tabela);
 
@@ -55,11 +53,15 @@ public class UsuarioDAO {
 
         InsertDBD.child(key).setValue(query).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                Toast.makeText(context, "Gravação realizada com sucesso", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Gravação Realtime realizada com sucesso", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(context, " Erro ao gravar", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, " Erro ao gravar Realtime", Toast.LENGTH_SHORT).show();
             }
-        });;
+        });
+        FDBD.collection("usuarios")
+                .add(query)
+                .addOnSuccessListener(documentReference -> Toast.makeText(context, "Gravação Banco de Dados realizada com sucesso", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(context, " Erro ao gravar Banco de Dados", Toast.LENGTH_SHORT).show());
     }
 
 
