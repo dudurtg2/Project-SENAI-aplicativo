@@ -1,4 +1,4 @@
-package com.bora.Funcoes.DAO.Usuario.View;
+package com.bora.Funcoes.DAO.Usuario.Consulta.View;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -10,6 +10,7 @@ import com.bora.R;
 
 public class ViewUsuario extends RecyclerView.ViewHolder {
     protected ImageView imageViewUsuario;
+
     protected TextView TextNome;
     protected TextView TextEndereco;
     protected TextView TextTelefone;
@@ -19,6 +20,7 @@ public class ViewUsuario extends RecyclerView.ViewHolder {
         TextEndereco = v.findViewById(R.id.TextEndereco);
         TextTelefone = v.findViewById(R.id.TextTelefone);
         imageViewUsuario = v.findViewById(R.id.imageViewUsuario);
+
     }
 
 }

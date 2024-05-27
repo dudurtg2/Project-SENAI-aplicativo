@@ -1,27 +1,21 @@
-package com.bora.Funcoes.DAO.Usuario;
+package com.bora.Funcoes.DAO.Usuario.Consulta;
 
 import android.content.Context;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
 import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultaUsuarioDAO {
+public class ConsultaDAO {
     private Context Contexto;
     private FirebaseFirestore db;
     private List<UsuarioDTO> usuarioList;
 
-    public ResultaUsuarioDAO(Context Contexto) {
+    public ConsultaDAO(Context Contexto) {
         this.Contexto = Contexto;
         this.db = FirebaseFirestore.getInstance();
         this.usuarioList = new ArrayList<>();

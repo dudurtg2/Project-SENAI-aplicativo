@@ -1,4 +1,4 @@
-package com.bora.Funcoes.DAO.Usuario.View;
+package com.bora.Funcoes.DAO.Usuario.Consulta.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;
