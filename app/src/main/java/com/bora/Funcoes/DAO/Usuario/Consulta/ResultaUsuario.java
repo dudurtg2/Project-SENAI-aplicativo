@@ -1,4 +1,4 @@
-package com.bora.Principal;
+package com.bora.Funcoes.DAO.Usuario.Consulta;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bora.Funcoes.DAO.Usuario.Consulta.ConsultaDAO;
 import com.bora.Funcoes.DAO.Usuario.Consulta.View.AdapterViewUsuario;
+import com.bora.Principal.MainActivity;
 import com.bora.databinding.ActivityResultaUsuarioBinding;
 
-public class resultaUsuario extends AppCompatActivity {
+public class ResultaUsuario extends AppCompatActivity {
     private ActivityResultaUsuarioBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,7 @@ public class resultaUsuario extends AppCompatActivity {
     public void ConsultaItens() {
         ConsultaDAO resultaUsuarioDAO = new ConsultaDAO(this);
         resultaUsuarioDAO.readData(usuarioDTO -> {
-            binding.TabelaDeResultados.setLayoutManager(new LinearLayoutManager(this));
+            binding.TabelaDeResultados.setLayoutManager(new LinearLayoutManager(this));//, LinearLayoutManager.VERTICAL, false//https://www.youtube.com/watch?v=Zj9ZE6_HtEo
             binding.TabelaDeResultados.setAdapter(new AdapterViewUsuario(getApplicationContext(), usuarioDTO));
         });
     }

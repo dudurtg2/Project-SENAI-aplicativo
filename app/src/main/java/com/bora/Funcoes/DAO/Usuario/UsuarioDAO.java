@@ -3,6 +3,7 @@ package com.bora.Funcoes.DAO.Usuario;
 import android.content.Context;
 import android.widget.Toast;
 import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 
 public class UsuarioDAO {
     private Context context;
-
+    private FirebaseAuth mAuth;
 
     public UsuarioDAO(Context context) {
         this.context = context;
@@ -38,8 +39,8 @@ public class UsuarioDAO {
         FirebaseFirestore FDBD = FirebaseFirestore.getInstance();
         FirebaseDatabase DBD = FirebaseDatabase.getInstance();
         DatabaseReference InsertDBD = DBD.getReference(tabela);
-
-        String key = InsertDBD.push().getKey();
+        mAuth = FirebaseAuth.getInstance();
+        String uid = mAuth.getCurrentUser().getUid();
 
         HashMap<String, Object> query = new HashMap<>();
 
@@ -49,9 +50,8 @@ public class UsuarioDAO {
         query.put("dataNascimento", usuarioDTO.getDataNascimento());
         query.put("cpf", usuarioDTO.getCpf());
         query.put("rg", usuarioDTO.getRg());
-        query.put("key", key);
 
-        InsertDBD.child(key).setValue(query).addOnCompleteListener(task -> {
+        InsertDBD.child(uid).setValue(query).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(context, "Gravação Realtime realizada com sucesso", Toast.LENGTH_SHORT).show();
             } else {
@@ -59,7 +59,8 @@ public class UsuarioDAO {
             }
         });
         FDBD.collection("usuarios")
-                .add(query)
+                .document(uid)
+                .set(query)
                 .addOnSuccessListener(documentReference -> Toast.makeText(context, "Gravação Banco de Dados realizada com sucesso", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(context, " Erro ao gravar Banco de Dados", Toast.LENGTH_SHORT).show());
     }

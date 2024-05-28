@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
 import com.bora.Funcoes.Verificadores;
+import com.bora.Funcoes.DAO.Usuario.Consulta.ResultaUsuario;
 import com.bora.R;
+import com.bora.Funcoes.DAO.Perfis.UsuarioPerfil;
 import com.bora.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.imageButtonBusca.setOnClickListener(v -> {
-            startActivity(new Intent(this, resultaUsuario.class));
+            startActivity(new Intent(this, ResultaUsuario.class));
+        });
+
+        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity( new Intent(this, UsuarioPerfil.class));
         });
 
     }
