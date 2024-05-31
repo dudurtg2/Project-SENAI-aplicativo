@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Autenticacao.Login.LoginActivity"
+    tools:context=".Activitys.Autenticacao.Login.LoginActivity"
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="18dp">
 

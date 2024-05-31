@@ -1,4 +1,4 @@
-package com.bora.Funcoes.DAO.Usuario.Consulta;
+package com.bora.Activitys.Usuarios.Consulta;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bora.Funcoes.DAO.Usuario.Consulta.ConsultaDAO;
 import com.bora.Funcoes.DAO.Usuario.Consulta.View.AdapterViewUsuario;
-import com.bora.Principal.MainActivity;
+import com.bora.Activitys.Principal.MainActivity;
 import com.bora.databinding.ActivityResultaUsuarioBinding;
 
 public class ResultaUsuario extends AppCompatActivity {

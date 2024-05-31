@@ -15,41 +15,31 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Funcoes.DAO.Perfis.UsuarioPerfil"
+            android:name=".Activitys.Usuarios.Perfis.UsuarioPerfil"
             android:exported="false" />
         <activity
-            android:name=".Funcoes.DAO.Usuario.Consulta.ResultaUsuario"
+            android:name=".Activitys.Usuarios.Consulta.ResultaUsuario"
             android:exported="false" />
         <activity
-            android:name=".Autenticacao.RecuperSenhaActivity"
+            android:name=".Activitys.Autenticacao.RecuperSenhaActivity"
             android:exported="false" />
         <activity
-            android:name=".Autenticacao.Cadastro.CadastroActivity"
+            android:name=".Activitys.Autenticacao.Cadastro.CadastroActivity"
             android:exported="false" />
         <activity
-            android:name=".Autenticacao.Login.LoginActivity"
+            android:name=".Activitys.Autenticacao.Login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="false"
-            android:label="@string/title_activity_login" />
-        <activity
-            android:name=".Principal.Inicial.SplashActivily"
+            android:name=".Activitys.Principal.Inicial.SplashActivily"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".Principal.MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".Activitys.Principal.MainActivity"
+            android:exported="false">
         </activity>
     </application>
 

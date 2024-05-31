@@ -1,4 +1,4 @@
-package com.bora.Autenticacao.Cadastro;
+package com.bora.Activitys.Autenticacao.Cadastro;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,9 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Autenticacao.Login.LoginActivity;
-import com.bora.Autenticacao.RecuperSenhaActivity;
+
+import com.bora.Activitys.Autenticacao.Login.LoginActivity;
+import com.bora.Activitys.Autenticacao.RecuperSenhaActivity;
 import com.bora.R;
 import com.bora.databinding.ActivityCadastroBinding;
 import com.google.firebase.auth.FirebaseAuth;

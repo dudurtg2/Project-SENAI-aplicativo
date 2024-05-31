@@ -1,4 +1,4 @@
-package com.bora.Funcoes.DAO.Perfis;
+package com.bora.Activitys.Usuarios.Perfis;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -6,17 +6,23 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bora.R;
 import com.bora.databinding.ActivityUsuarioPerfilBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 public class UsuarioPerfil extends AppCompatActivity {
     private ActivityUsuarioPerfilBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
+    FirebaseStorage storage = FirebaseStorage.getInstance();
+    StorageReference storageRef = storage.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,16 @@ public class UsuarioPerfil extends AppCompatActivity {
             });
         } else {
             binding.nome.setText("Usuário não autenticado");
+        }
+
+        if (currentUser != null) {
+            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/"+currentUser.getUid()+"/profile.png");
+            gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                Picasso.get().load(uri).into(binding.imageViewPerfil);
+            }).addOnFailureListener(exception -> {
+                binding.imageViewPerfil.setImageResource(R.drawable.a);
+            });
+
         }
 
     }

@@ -1,4 +1,4 @@
-package com.bora.Principal;
+package com.bora.Activitys.Principal;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
 import com.bora.Funcoes.Verificadores;
-import com.bora.Funcoes.DAO.Usuario.Consulta.ResultaUsuario;
+import com.bora.Activitys.Usuarios.Consulta.ResultaUsuario;
 import com.bora.R;
-import com.bora.Funcoes.DAO.Perfis.UsuarioPerfil;
+import com.bora.Activitys.Usuarios.Perfis.UsuarioPerfil;
 import com.bora.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
