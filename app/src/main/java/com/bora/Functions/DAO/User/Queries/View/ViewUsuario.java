@@ -1,4 +1,4 @@
-package com.bora.Funcoes.DAO.Usuario.Consulta.View;
+package com.bora.Functions.DAO.User.Queries.View;
 
 import android.view.View;
 import android.widget.ImageView;

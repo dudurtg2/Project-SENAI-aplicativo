@@ -1,7 +1,7 @@
-package com.bora.Funcoes;
+package com.bora.Functions;
 
-public class Verificadores {
-    public static boolean verificarCPF(String cpf) {
+public class Verifiers {
+    public static boolean verifierCPF(String cpf) {
 
         cpf = cpf.replaceAll("[^\\d]", "");
 
@@ -32,7 +32,7 @@ public class Verificadores {
         }
         return true;
     }
-    public static boolean verificarRG(String rg) {
+    public static boolean verifierRG(String rg) {
         rg = rg.replaceAll("[^\\d]", "");
 
         if (rg.length() < 6) {

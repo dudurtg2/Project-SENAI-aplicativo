@@ -1,4 +1,4 @@
-package com.bora.Activitys.Principal;
+package com.bora.Activitys.Main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,15 +6,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
-import com.bora.Funcoes.Verificadores;
-import com.bora.Activitys.Usuarios.Consulta.ResultaUsuario;
+import com.bora.Functions.DAO.User.UserDAO;
+import com.bora.Functions.Verifiers;
+import com.bora.Activitys.Users.Queries.UserResults;
 import com.bora.R;
-import com.bora.Activitys.Usuarios.Perfis.UsuarioPerfil;
+import com.bora.Activitys.Users.Profiles.UserProfile;
 import com.bora.databinding.ActivityMainBinding;
-
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -34,18 +31,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.imageButtonBusca.setOnClickListener(v -> {
-            startActivity(new Intent(this, ResultaUsuario.class));
+            startActivity(new Intent(this, UserResults.class));
         });
 
-        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity( new Intent(this, UsuarioPerfil.class));
+        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity( new Intent(this, UserProfile.class));
         });
 
     }
 
     private void salvar() {
-        Verificadores verificadores = new Verificadores();
+        Verifiers verificadores = new Verifiers();
 
-        UsuarioDAO usuario = new UsuarioDAO(this);
+        UserDAO usuario = new UserDAO(this);
 
         EditText[] fields = new EditText[]{
                 binding.Editnome,
@@ -60,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        String tabela;
+        String table;
         String cpf;
         String rg;
 
         if (!binding.EditCPF.getText().toString().isEmpty()){
-            if (!Verificadores.verificarCPF(binding.EditCPF.getText().toString())){
+            if (!Verifiers.verifierCPF(binding.EditCPF.getText().toString())){
                 Toast.makeText(this, "CPF inválido", Toast.LENGTH_SHORT).show();
                 return;
             }else{
@@ -76,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (!binding.EditRG.getText().toString().isEmpty()){
-            if (!Verificadores.verificarRG(binding.EditCPF.getText().toString())){
+            if (!Verifiers.verifierRG(binding.EditCPF.getText().toString())){
                 Toast.makeText(this, "RG inválido", Toast.LENGTH_SHORT).show();
                 return;
             }else{
@@ -86,10 +83,10 @@ public class MainActivity extends AppCompatActivity {
             rg = binding.EditRG.getText().toString();
         }
 
-        if (binding.EditTabela.getText().toString().isEmpty()){
-            tabela = binding.EditTabela.getText().toString();
+        if (binding.Edittable.getText().toString().isEmpty()){
+            table = binding.Edittable.getText().toString();
         }else{
-            tabela = "usuarios";
+            table = "usuarios";
         }
 
         String nome = binding.Editnome.getText().toString();
@@ -97,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         String telefone = binding.Edittelefone.getText().toString();
         String dataNascimento = binding.EditdataNascimento.getText().toString();
 
-        usuario.usuarioDTO(tabela, nome, endereco, telefone, dataNascimento, cpf, rg);
+        usuario.userDTO(table, nome, endereco, telefone, dataNascimento, cpf, rg);
 
         Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
     }

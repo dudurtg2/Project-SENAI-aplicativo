@@ -1,28 +1,28 @@
-package com.bora.Funcoes.DAO.Usuario.Consulta;
+package com.bora.Functions.DAO.User.Queries;
 
 import android.content.Context;
 import android.widget.Toast;
 
-import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
+import com.bora.Functions.DTO.Users.UserDTO;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConsultaDAO {
+public class QueryDAO {
     private Context Contexto;
     private FirebaseFirestore db;
-    private List<UsuarioDTO> usuarioList;
+    private List<UserDTO> usuarioList;
 
-    public ConsultaDAO(Context Contexto) {
+    public QueryDAO(Context Contexto) {
         this.Contexto = Contexto;
         this.db = FirebaseFirestore.getInstance();
         this.usuarioList = new ArrayList<>();
     }
 
     public interface FirestoreCallback {
-        void onCallback(List<UsuarioDTO> usuarioList);
+        void onCallback(List<UserDTO> usuarioList);
     }
     public void readData(final FirestoreCallback firestoreCallback) {
         db.collection("usuarios")
@@ -31,7 +31,7 @@ public class ConsultaDAO {
                     if (task.isSuccessful()) {
                         usuarioList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            UsuarioDTO usuario = new UsuarioDTO(
+                            UserDTO usuario = new UserDTO(
                                     document.getString("nome"),
                                     document.getString("endereco"),
                                     document.getString("telefone"),

@@ -18,22 +18,22 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Activitys.Usuarios.Perfis.UsuarioPerfil"
+            android:name=".Activitys.Users.Profiles.UserProfile"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Usuarios.Consulta.ResultaUsuario"
+            android:name=".Activitys.Users.Queries.UserResults"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Autenticacao.RecuperSenhaActivity"
+            android:name=".Activitys.Authentication.RecoverPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Autenticacao.Cadastro.CadastroActivity"
+            android:name=".Activitys.Authentication.Register.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Autenticacao.Login.LoginActivity"
+            android:name=".Activitys.Authentication.Login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Principal.Inicial.SplashActivily"
+            android:name=".Activitys.Main.First.SplashActivily"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activitys.Principal.MainActivity"
+            android:name=".Activitys.Main.MainActivity"
             android:exported="false">
         </activity>
     </application>

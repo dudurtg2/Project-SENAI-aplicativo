@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.Usuarios.Consulta.ResultaUsuario">
+    tools:context=".Activitys.Users.Queries.UserResults">
 
 
     <ImageButton
@@ -22,7 +22,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
 
-        android:id="@+id/TabelaDeResultados"
+        android:id="@+id/tableDeResultados"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

@@ -1,4 +1,4 @@
-package com.bora.Activitys.Usuarios.Perfis;
+package com.bora.Activitys.Users.Profiles;
 
 import android.os.Bundle;
 import android.widget.Toast;
@@ -15,7 +15,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-public class UsuarioPerfil extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity {
     private ActivityUsuarioPerfilBinding binding;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -46,10 +46,10 @@ public class UsuarioPerfil extends AppCompatActivity {
                         String nome = document.getString("nome");
                         binding.nome.setText(nome != null ? nome : "Nome não disponível");
                     } else {
-                        Toast.makeText(UsuarioPerfil.this, "Documento não encontrado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserProfile.this, "Documento não encontrado", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(UsuarioPerfil.this, "Erro ao acessar o Firestore", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UserProfile.this, "Erro ao acessar o Firestore", Toast.LENGTH_SHORT).show();
                 }
             });
         } else {

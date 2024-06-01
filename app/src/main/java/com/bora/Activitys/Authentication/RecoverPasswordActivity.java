@@ -1,4 +1,4 @@
-package com.bora.Activitys.Autenticacao;
+package com.bora.Activitys.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Activitys.Autenticacao.Login.LoginActivity;
+import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.R;
 import com.bora.databinding.ActivityRecuperSenhaBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class RecuperSenhaActivity extends AppCompatActivity {
+public class RecoverPasswordActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ActivityRecuperSenhaBinding binding;
     @Override

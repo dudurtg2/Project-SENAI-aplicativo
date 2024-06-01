@@ -1,9 +1,9 @@
-package com.bora.Funcoes.DAO.Usuario;
+package com.bora.Functions.DAO.User;
 
 import android.content.Context;
 import android.widget.Toast;
 
-import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
+import com.bora.Functions.DTO.Users.UserDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -14,15 +14,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 
-public class UsuarioDAO {
+public class UserDAO {
     private Context context;
     private FirebaseAuth mAuth;
 
-    public UsuarioDAO(Context context) {
+    public UserDAO(Context context) {
         this.context = context;
     }
 
-    public void usuarioDTO(String tabela, String nome, String endereco, String telefone, String dataNascimento, String cpf, String rg) {
+    public void userDTO(String table, String name, String endereco, String telefone, String dataNascimento, String cpf, String rg) {
         if (dataNascimento.isEmpty()) {
             dataNascimento = "Data de nascimento não informada";
         }
@@ -33,14 +33,14 @@ public class UsuarioDAO {
             rg = "RG não informado";
         }
 
-        UsuarioDTO usuarioDTO = new UsuarioDTO(nome, endereco, telefone, dataNascimento, cpf, rg);
-        writeNewUser(tabela, usuarioDTO);
+        UserDTO usuarioDTO = new UserDTO(name, endereco, telefone, dataNascimento, cpf, rg);
+        writeNewUser(table, usuarioDTO);
     }
 
-    public void writeNewUser(String tabela, UsuarioDTO usuarioDTO) {
+    public void writeNewUser(String table, UserDTO usuarioDTO) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference(tabela);
+        DatabaseReference databaseReference = database.getReference(table);
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
 
@@ -63,10 +63,10 @@ public class UsuarioDAO {
 
                 HashMap<String, Object> query = new HashMap<>();
 
-                query.put("nome", usuarioDTO.getNome());
-                query.put("endereco", usuarioDTO.getEndereco());
-                query.put("telefone", usuarioDTO.getTelefone());
-                query.put("dataNascimento", usuarioDTO.getDataNascimento());
+                query.put("name", usuarioDTO.getName());
+                query.put("endereco", usuarioDTO.getAddress());
+                query.put("telefone", usuarioDTO.getNumber());
+                query.put("dataNascimento", usuarioDTO.getBirthDate());
                 query.put("cpf", usuarioDTO.getCpf());
                 query.put("rg", usuarioDTO.getRg());
                 query.put("uid", uid);

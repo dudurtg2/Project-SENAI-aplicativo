@@ -1,11 +1,11 @@
-package com.bora.Activitys.Principal.Inicial;
+package com.bora.Activitys.Main.First;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Activitys.Autenticacao.Login.LoginActivity;
+import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.R;
 
 public class SplashActivily extends AppCompatActivity {

@@ -5,19 +5,19 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.Autenticacao.Login.LoginActivity"
+    tools:context=".Activitys.Authentication.Login.LoginActivity"
     tools:layout_editor_absoluteX="-1dp"
     tools:layout_editor_absoluteY="18dp">
 
     <EditText
-        android:id="@+id/EditTabela"
+        android:id="@+id/Edittable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
-        android:hint="Tabela"
+        android:hint="table"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

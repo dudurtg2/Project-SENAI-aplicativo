@@ -1,4 +1,4 @@
-package com.bora.Activitys.Autenticacao.Login;
+package com.bora.Activitys.Authentication.Login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +9,10 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bora.Activitys.Autenticacao.Cadastro.CadastroActivity;
-import com.bora.Activitys.Autenticacao.RecuperSenhaActivity;
-import com.bora.Activitys.Principal.MainActivity;
-import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
+import com.bora.Activitys.Authentication.Register.RegisterActivity;
+import com.bora.Activitys.Authentication.RecoverPasswordActivity;
+import com.bora.Activitys.Main.MainActivity;
+import com.bora.Functions.DAO.User.UserDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -45,12 +45,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.ClickCadastro.setOnClickListener(v -> {
-            startActivity(new Intent(this, CadastroActivity.class));
+            startActivity(new Intent(this, RegisterActivity.class));
         });
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         binding.btnLogin.setOnClickListener(v -> validarDados());
-        binding.ClickRecuperacao.setOnClickListener(v -> startActivity(new Intent(this, RecuperSenhaActivity.class)));
+        binding.ClickRecuperacao.setOnClickListener(v -> startActivity(new Intent(this, RecoverPasswordActivity.class)));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -150,8 +150,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void inserirUsuarioNoFirestore(FirebaseUser user) {
-        UsuarioDAO usuarioDAO = new UsuarioDAO(this);
-        usuarioDAO.usuarioDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
+        UserDAO usuarioDAO = new UserDAO(this);
+        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
 
         startActivity(new Intent(this, MainActivity.class));
         finish();

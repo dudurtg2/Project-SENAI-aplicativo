@@ -1,16 +1,16 @@
-package com.bora.Activitys.Usuarios.Consulta;
+package com.bora.Activitys.Users.Queries;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import com.bora.Funcoes.DAO.Usuario.Consulta.ConsultaDAO;
-import com.bora.Funcoes.DAO.Usuario.Consulta.View.AdapterViewUsuario;
-import com.bora.Activitys.Principal.MainActivity;
+import com.bora.Functions.DAO.User.Queries.QueryDAO;
+import com.bora.Functions.DAO.User.Queries.View.AdapterViewUsuario;
+import com.bora.Activitys.Main.MainActivity;
 import com.bora.databinding.ActivityResultaUsuarioBinding;
 
-public class ResultaUsuario extends AppCompatActivity {
+public class UserResults extends AppCompatActivity {
     private ActivityResultaUsuarioBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +26,10 @@ public class ResultaUsuario extends AppCompatActivity {
     }
 
     public void ConsultaItens() {
-        ConsultaDAO resultaUsuarioDAO = new ConsultaDAO(this);
+        QueryDAO resultaUsuarioDAO = new QueryDAO(this);
         resultaUsuarioDAO.readData(usuarioDTO -> {
-            binding.TabelaDeResultados.setLayoutManager(new LinearLayoutManager(this));//, LinearLayoutManager.VERTICAL, false//https://www.youtube.com/watch?v=Zj9ZE6_HtEo
-            binding.TabelaDeResultados.setAdapter(new AdapterViewUsuario(getApplicationContext(), usuarioDTO));
+            binding.tableDeResultados.setLayoutManager(new LinearLayoutManager(this));//, LinearLayoutManager.VERTICAL, false//https://www.youtube.com/watch?v=Zj9ZE6_HtEo
+            binding.tableDeResultados.setAdapter(new AdapterViewUsuario(getApplicationContext(), usuarioDTO));
         });
     }
 

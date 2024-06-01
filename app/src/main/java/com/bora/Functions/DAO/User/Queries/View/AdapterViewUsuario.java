@@ -1,11 +1,11 @@
-package com.bora.Funcoes.DAO.Usuario.Consulta.View;
+package com.bora.Functions.DAO.User.Queries.View;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
+import com.bora.Functions.DTO.Users.UserDTO;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,8 +21,8 @@ public class AdapterViewUsuario extends RecyclerView.Adapter<ViewUsuario>{
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseFirestore db;
     Context context;
-    List<UsuarioDTO> usuarioDTO;
-    public AdapterViewUsuario(Context context, List<UsuarioDTO> usuarioDTO) {
+    List<UserDTO> usuarioDTO;
+    public AdapterViewUsuario(Context context, List<UserDTO> usuarioDTO) {
         this.context = context;
         this.usuarioDTO = usuarioDTO;
     }
@@ -38,9 +38,9 @@ public class AdapterViewUsuario extends RecyclerView.Adapter<ViewUsuario>{
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        holder.TextNome.setText(usuarioDTO.get(position).getNome());
-        holder.TextEndereco.setText(usuarioDTO.get(position).getEndereco());
-        holder.TextTelefone.setText(usuarioDTO.get(position).getTelefone());
+        holder.TextNome.setText(usuarioDTO.get(position).getName());
+        holder.TextEndereco.setText(usuarioDTO.get(position).getAddress());
+        holder.TextTelefone.setText(usuarioDTO.get(position).getNumber());
         if (currentUser != null) {
             StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/"+usuarioDTO.get(position).getId()+"/profile.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
