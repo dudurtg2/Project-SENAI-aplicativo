@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         binding.BTMINSERTE.setOnClickListener(v -> {
-            salvar();
+            save();
         });
 
         binding.imageButtonBusca.setOnClickListener(v -> {
@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void salvar() {
+    private void save() {
         Verifiers verificadores = new Verifiers();
 
-        UserDAO usuario = new UserDAO(this);
+        UserDAO userDAO = new UserDAO(this);
 
         EditText[] fields = new EditText[]{
                 binding.Editnome,
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         String telefone = binding.Edittelefone.getText().toString();
         String dataNascimento = binding.EditdataNascimento.getText().toString();
 
-        usuario.userDTO(table, nome, endereco, telefone, dataNascimento, cpf, rg);
+        userDAO.userDTO(table, nome, endereco, telefone, dataNascimento, cpf, rg);
 
         Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
     }

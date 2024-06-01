@@ -11,25 +11,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class QueryDAO {
-    private Context Contexto;
+    private Context context;
     private FirebaseFirestore db;
-    private List<UserDTO> usuarioList;
+    private List<UserDTO> userList;
 
-    public QueryDAO(Context Contexto) {
-        this.Contexto = Contexto;
+    public QueryDAO(Context context) {
+        this.context = context;
         this.db = FirebaseFirestore.getInstance();
-        this.usuarioList = new ArrayList<>();
+        this.userList = new ArrayList<>();
     }
 
     public interface FirestoreCallback {
-        void onCallback(List<UserDTO> usuarioList);
+        void onCallback(List<UserDTO> userList);
     }
     public void readData(final FirestoreCallback firestoreCallback) {
         db.collection("usuarios")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
-                        usuarioList.clear();
+                        userList.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             UserDTO usuario = new UserDTO(
                                     document.getString("nome"),
@@ -37,11 +37,11 @@ public class QueryDAO {
                                     document.getString("telefone"),
                                     document.getString("uid")
                             );
-                            usuarioList.add(usuario);
+                            userList.add(usuario);
                         }
-                        firestoreCallback.onCallback(usuarioList);
+                        firestoreCallback.onCallback(userList);
                     } else {
-                        Toast.makeText(Contexto, "Erro ao obter documentos: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Erro ao obter documentos: " + task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 });
     }

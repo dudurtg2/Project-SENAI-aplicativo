@@ -21,15 +21,15 @@ public class UserResults extends AppCompatActivity {
         binding.imageButtonVoltar.setOnClickListener(v -> {
             startActivity(new Intent(this, MainActivity.class));
         });
-        ConsultaItens();
+        QueryItems();
 
     }
 
-    public void ConsultaItens() {
+    public void QueryItems() {
         QueryDAO resultaUsuarioDAO = new QueryDAO(this);
-        resultaUsuarioDAO.readData(usuarioDTO -> {
+        resultaUsuarioDAO.readData(userDTO -> {
             binding.tableDeResultados.setLayoutManager(new LinearLayoutManager(this));//, LinearLayoutManager.VERTICAL, false//https://www.youtube.com/watch?v=Zj9ZE6_HtEo
-            binding.tableDeResultados.setAdapter(new AdapterViewUsuario(getApplicationContext(), usuarioDTO));
+            binding.tableDeResultados.setAdapter(new AdapterViewUsuario(getApplicationContext(), userDTO));
         });
     }
 

@@ -16,7 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ActivityCadastroBinding binding;
-    private UserDAO usuario;
+    private UserDAO userDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,18 +29,18 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(new Intent(this, LoginActivity.class));
         });
         auth = FirebaseAuth.getInstance();
-        binding.btnCadastrar.setOnClickListener(v -> {validarDados();});
+        binding.btnCadastrar.setOnClickListener(v -> {validateData();});
         binding.ClickRecuperacao.setOnClickListener(v -> { startActivity(new Intent(this, RecoverPasswordActivity.class)); });
-        usuario = new UserDAO(this);
+        userDAO = new UserDAO(this);
     }
 
-    private void validarDados(){
+    private void validateData(){
         String email = binding.EditEmail.getText().toString().trim();
         String senha = binding.EditSenha.getText().toString().trim();
 
         if(!email.isEmpty()){
             if(!senha.isEmpty()){
-                FireBaseCadastroConta(email, senha);
+                FireBaseRegistrationAccount(email, senha);
                 binding.progressBar.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(this, "Preencha a senha", Toast.LENGTH_SHORT).show();
@@ -49,14 +49,14 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
         }
     }
-    private void FireBaseCadastroConta(String email, String senha){
+    private void FireBaseRegistrationAccount(String email, String senha){
         auth.createUserWithEmailAndPassword(
                 email, senha
         ).addOnCompleteListener(this, task -> {
             if(task.isSuccessful()){
                 finish();
                 Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                usuario.userDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
+                userDAO.userDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
                 startActivity(new Intent(this, LoginActivity.class));
             } else {
                 binding.progressBar.setVisibility(View.GONE);

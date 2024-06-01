@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        binding.btnLogin.setOnClickListener(v -> validarDados());
+        binding.btnLogin.setOnClickListener(v -> validateData());
         binding.ClickRecuperacao.setOnClickListener(v -> startActivity(new Intent(this, RecoverPasswordActivity.class)));
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -66,13 +66,13 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void validarDados(){
+    private void validateData(){
         String email = binding.EditEmail.getText().toString().trim();
         String senha = binding.EditSenha.getText().toString().trim();
 
         if(!email.isEmpty()){
             if(!senha.isEmpty()){
-                FireBaseLoginConta(email, senha);
+                FireBaseLoginAccount(email, senha);
                 binding.progressBar.setVisibility(View.VISIBLE);
             } else {
                 Toast.makeText(this, "Preencha a senha", Toast.LENGTH_SHORT).show();
@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void FireBaseLoginConta(String email, String senha){
+    private void FireBaseLoginAccount(String email, String senha){
         auth.signInWithEmailAndPassword(email, senha)
                 .addOnCompleteListener(this, task -> {
                     if(task.isSuccessful()){
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                                 finish();
                             } else {
 
-                                inserirUsuarioNoFirestore(user);
+                                insertUserNoFirestore(user);
                             }
                         } else {
                             Toast.makeText(LoginActivity.this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show();
@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    private void inserirUsuarioNoFirestore(FirebaseUser user) {
+    private void insertUserNoFirestore(FirebaseUser user) {
         UserDAO usuarioDAO = new UserDAO(this);
         usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
 

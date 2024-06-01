@@ -22,9 +22,9 @@ public class UserDAO {
         this.context = context;
     }
 
-    public void userDTO(String table, String name, String endereco, String telefone, String dataNascimento, String cpf, String rg) {
-        if (dataNascimento.isEmpty()) {
-            dataNascimento = "Data de nascimento não informada";
+    public void userDTO(String table, String name, String address, String number, String birthDate, String cpf, String rg) {
+        if (birthDate.isEmpty()) {
+            birthDate = "Data de nascimento não informada";
         }
         if (cpf.isEmpty()) {
             cpf = "CPF não informado";
@@ -33,11 +33,11 @@ public class UserDAO {
             rg = "RG não informado";
         }
 
-        UserDTO usuarioDTO = new UserDTO(name, endereco, telefone, dataNascimento, cpf, rg);
-        writeNewUser(table, usuarioDTO);
+        UserDTO userDTO = new UserDTO(name, address, number, birthDate, cpf, rg);
+        writeNewUser(table, userDTO);
     }
 
-    public void writeNewUser(String table, UserDTO usuarioDTO) {
+    public void writeNewUser(String table, UserDTO userDTO) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference databaseReference = database.getReference(table);
@@ -63,12 +63,12 @@ public class UserDAO {
 
                 HashMap<String, Object> query = new HashMap<>();
 
-                query.put("name", usuarioDTO.getName());
-                query.put("endereco", usuarioDTO.getAddress());
-                query.put("telefone", usuarioDTO.getNumber());
-                query.put("dataNascimento", usuarioDTO.getBirthDate());
-                query.put("cpf", usuarioDTO.getCpf());
-                query.put("rg", usuarioDTO.getRg());
+                query.put("name", userDTO.getName());
+                query.put("endereco", userDTO.getAddress());
+                query.put("telefone", userDTO.getNumber());
+                query.put("dataNascimento", userDTO.getBirthDate());
+                query.put("cpf", userDTO.getCpf());
+                query.put("rg", userDTO.getRg());
                 query.put("uid", uid);
                 query.put("data", currentMinutesOfYear);
 

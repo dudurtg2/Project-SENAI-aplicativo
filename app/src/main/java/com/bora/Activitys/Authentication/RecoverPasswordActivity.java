@@ -22,21 +22,21 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         binding = ActivityRecuperSenhaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         auth = FirebaseAuth.getInstance();
-        binding.btnRecuperar.setOnClickListener(v -> {validarDados();});
+        binding.btnRecuperar.setOnClickListener(v -> {validateData();});
         binding.ClickLogin.setOnClickListener(v -> { startActivity(new Intent(this, LoginActivity.class));});
     }
 
-    private void validarDados(){
+    private void validateData(){
         String email = binding.EditEmail.getText().toString().trim();
         if(!email.isEmpty()){
-            FireBaseRecuperaConta(email);
+            FireBaseRecoverAccount(email);
             binding.progressBar.setVisibility(View.VISIBLE);
         } else {
             Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void FireBaseRecuperaConta(String email){
+    private void FireBaseRecoverAccount(String email){
         auth.sendPasswordResetEmail(
                 email
         ).addOnCompleteListener(this, task -> {
