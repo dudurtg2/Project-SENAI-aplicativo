@@ -1,20 +1,28 @@
 package com.bora.Activitys.Main;
+import com.bora.Functions.DAO.User.Updates.ImageUploaderDAO;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Functions.DAO.User.UserDAO;
+import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.Functions.Verifiers;
 import com.bora.Activitys.Users.Queries.UserResults;
 import com.bora.R;
 import com.bora.Activitys.Users.Profiles.UserProfile;
 import com.bora.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    private ActivityMainBinding binding;
+    public static final int PICK_IMAGE_REQUEST = 1;
+    public ActivityMainBinding binding;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private ImageUploaderDAO imageUploader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +31,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        imageUploader = new ImageUploaderDAO(this);
 
+        binding.BTMINSERTE.setOnClickListener(v -> save());
 
+        binding.imageButtonBusca.setOnClickListener(v -> startActivity(new Intent(this, UserResults.class)));
 
-        binding.BTMINSERTE.setOnClickListener(v -> {
-            save();
-        });
+        binding.imageButtonUsuario.setOnClickListener(v -> startActivity(new Intent(this, UserProfile.class)));
 
-        binding.imageButtonBusca.setOnClickListener(v -> {
-            startActivity(new Intent(this, UserResults.class));
-        });
+        binding.imageButtonPerfil.setOnClickListener(v -> imageUploader.openFileChooser(this));
 
-        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity( new Intent(this, UserProfile.class));
-        });
+        imageUploader.loadImagem();
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        imageUploader.handleImageResult(requestCode, resultCode, data, this);
     }
 
     private void save() {
-        Verifiers verificadores = new Verifiers();
-
         UserDAO userDAO = new UserDAO(this);
 
         EditText[] fields = new EditText[]{
@@ -61,31 +72,31 @@ public class MainActivity extends AppCompatActivity {
         String cpf;
         String rg;
 
-        if (!binding.EditCPF.getText().toString().isEmpty()){
-            if (!Verifiers.verifierCPF(binding.EditCPF.getText().toString())){
+        if (!binding.EditCPF.getText().toString().isEmpty()) {
+            if (!Verifiers.verifierCPF(binding.EditCPF.getText().toString())) {
                 Toast.makeText(this, "CPF inválido", Toast.LENGTH_SHORT).show();
                 return;
-            }else{
+            } else {
                 cpf = binding.EditCPF.getText().toString();
             }
         } else {
             cpf = binding.EditCPF.getText().toString();
         }
 
-        if (!binding.EditRG.getText().toString().isEmpty()){
-            if (!Verifiers.verifierRG(binding.EditCPF.getText().toString())){
+        if (!binding.EditRG.getText().toString().isEmpty()) {
+            if (!Verifiers.verifierRG(binding.EditCPF.getText().toString())) {
                 Toast.makeText(this, "RG inválido", Toast.LENGTH_SHORT).show();
                 return;
-            }else{
+            } else {
                 rg = binding.EditRG.getText().toString();
             }
         } else {
             rg = binding.EditRG.getText().toString();
         }
 
-        if (binding.Edittable.getText().toString().isEmpty()){
+        if (binding.Edittable.getText().toString().isEmpty()) {
             table = binding.Edittable.getText().toString();
-        }else{
+        } else {
             table = "usuarios";
         }
 

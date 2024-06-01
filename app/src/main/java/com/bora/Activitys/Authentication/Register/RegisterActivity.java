@@ -8,7 +8,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.Activitys.Authentication.RecoverPasswordActivity;
-import com.bora.Functions.DAO.User.UserDAO;
+import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityCadastroBinding;
 import com.google.firebase.auth.FirebaseAuth;

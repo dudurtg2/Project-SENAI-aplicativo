@@ -1,4 +1,4 @@
-package com.bora.Functions.DAO.User;
+package com.bora.Functions.DAO.User.Updates;
 
 import android.content.Context;
 import android.widget.Toast;

@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bora.Activitys.Authentication.Register.RegisterActivity;
 import com.bora.Activitys.Authentication.RecoverPasswordActivity;
 import com.bora.Activitys.Main.MainActivity;
-import com.bora.Functions.DAO.User.UserDAO;
+import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityLoginBinding;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
