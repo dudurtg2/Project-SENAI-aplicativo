@@ -4,22 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.bora.Activitys.Autenticacao.Cadastro.CadastroActivity;
 import com.bora.Activitys.Autenticacao.RecuperSenhaActivity;
 import com.bora.Activitys.Principal.MainActivity;
+import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityLoginBinding;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -27,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +48,10 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(new Intent(this, CadastroActivity.class));
         });
         auth = FirebaseAuth.getInstance();
-        binding.btnLogin.setOnClickListener(v -> {validarDados();});
-        binding.ClickRecuperacao.setOnClickListener(v -> { startActivity(new Intent(this, RecuperSenhaActivity.class)); });
+        db = FirebaseFirestore.getInstance();
+        binding.btnLogin.setOnClickListener(v -> validarDados());
+        binding.ClickRecuperacao.setOnClickListener(v -> startActivity(new Intent(this, RecuperSenhaActivity.class)));
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -71,19 +81,19 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
         }
     }
+
     private void FireBaseLoginConta(String email, String senha){
-        auth.signInWithEmailAndPassword(
-                email, senha
-        ).addOnCompleteListener(this, task -> {
-            if(task.isSuccessful()){
-                finish();
-                Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, MainActivity.class));
-            } else {
-                binding.progressBar.setVisibility(View.GONE);
-                Toast.makeText(this, "Email não cadastrado", Toast.LENGTH_SHORT).show();
-            }
-        });
+        auth.signInWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(this, task -> {
+                    if(task.isSuccessful()){
+                        finish();
+                        Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(this, MainActivity.class));
+                    } else {
+                        binding.progressBar.setVisibility(View.GONE);
+                        Toast.makeText(this, "Email não cadastrado", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -100,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             firebaseAuthWithGoogle(account.getIdToken());
         } catch (ApiException e) {
-
             Toast.makeText(this, "Google login Falhou", Toast.LENGTH_SHORT).show();
         }
     }
@@ -109,16 +118,42 @@ public class LoginActivity extends AppCompatActivity {
         auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, MainActivity.class));
-                        finish();
+                        FirebaseUser user = auth.getCurrentUser();
+                        if (user != null) {
+                            checkIfUserExists(user);
+                        }
                     } else {
-                        Toast.makeText(this, "login Falhou", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Login Falhou", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
+    private void checkIfUserExists(FirebaseUser user) {
+        db.collection("usuarios").document(user.getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document != null && document.exists()) {
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                finish();
+                            } else {
 
+                                inserirUsuarioNoFirestore(user);
+                            }
+                        } else {
+                            Toast.makeText(LoginActivity.this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+    private void inserirUsuarioNoFirestore(FirebaseUser user) {
+        UsuarioDAO usuarioDAO = new UsuarioDAO(this);
+        usuarioDAO.usuarioDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
+
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+    }
 }
-
-

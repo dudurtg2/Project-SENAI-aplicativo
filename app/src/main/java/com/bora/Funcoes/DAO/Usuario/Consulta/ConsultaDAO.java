@@ -34,12 +34,11 @@ public class ConsultaDAO {
                             UsuarioDTO usuario = new UsuarioDTO(
                                     document.getString("nome"),
                                     document.getString("endereco"),
-                                    document.getString("telefone")
+                                    document.getString("telefone"),
+                                    document.getString("uid")
                             );
-
                             usuarioList.add(usuario);
                         }
-                        // Chamar o callback com a lista preenchida
                         firestoreCallback.onCallback(usuarioList);
                     } else {
                         Toast.makeText(Contexto, "Erro ao obter documentos: " + task.getException(), Toast.LENGTH_SHORT).show();

@@ -2,10 +2,8 @@ package com.bora.Activitys.Usuarios.Perfis;
 
 import android.os.Bundle;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bora.R;
 import com.bora.databinding.ActivityUsuarioPerfilBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,7 +20,6 @@ public class UsuarioPerfil extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     FirebaseStorage storage = FirebaseStorage.getInstance();
-    StorageReference storageRef = storage.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

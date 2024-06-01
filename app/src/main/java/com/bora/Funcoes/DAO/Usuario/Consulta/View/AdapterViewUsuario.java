@@ -3,15 +3,10 @@ package com.bora.Funcoes.DAO.Usuario.Consulta.View;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bora.Activitys.Usuarios.Perfis.UsuarioPerfil;
 import com.bora.Funcoes.DTO.Usuario.UsuarioDTO;
 import com.bora.R;
-import com.bora.databinding.ActivityUsuarioPerfilBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,7 +42,7 @@ public class AdapterViewUsuario extends RecyclerView.Adapter<ViewUsuario>{
         holder.TextEndereco.setText(usuarioDTO.get(position).getEndereco());
         holder.TextTelefone.setText(usuarioDTO.get(position).getTelefone());
         if (currentUser != null) {
-            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/"+currentUser.getUid()+"/profile.png");
+            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/"+usuarioDTO.get(position).getId()+"/profile.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Picasso.get().load(uri).into(holder.imageViewUsuario);
             }).addOnFailureListener(exception -> {

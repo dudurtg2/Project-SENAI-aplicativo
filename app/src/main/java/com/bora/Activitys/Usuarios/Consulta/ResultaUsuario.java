@@ -2,11 +2,9 @@ package com.bora.Activitys.Usuarios.Consulta;
 
 import android.content.Intent;
 import android.os.Bundle;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.bora.Funcoes.DAO.Usuario.Consulta.ConsultaDAO;
 import com.bora.Funcoes.DAO.Usuario.Consulta.View.AdapterViewUsuario;
 import com.bora.Activitys.Principal.MainActivity;

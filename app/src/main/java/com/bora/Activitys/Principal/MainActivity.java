@@ -6,7 +6,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
 import com.bora.Funcoes.Verificadores;
 import com.bora.Activitys.Usuarios.Consulta.ResultaUsuario;
@@ -14,8 +13,12 @@ import com.bora.R;
 import com.bora.Activitys.Usuarios.Perfis.UsuarioPerfil;
 import com.bora.databinding.ActivityMainBinding;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
+
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+
 
         binding.BTMINSERTE.setOnClickListener(v -> {
             salvar();
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         String telefone = binding.Edittelefone.getText().toString();
         String dataNascimento = binding.EditdataNascimento.getText().toString();
 
-        usuario.usuarioDTO(tabela,nome, endereco, telefone, dataNascimento, cpf, rg);
+        usuario.usuarioDTO(tabela, nome, endereco, telefone, dataNascimento, cpf, rg);
 
         Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
     }

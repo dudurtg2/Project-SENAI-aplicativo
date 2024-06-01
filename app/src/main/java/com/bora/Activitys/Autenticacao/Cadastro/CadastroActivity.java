@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.bora.Activitys.Autenticacao.Login.LoginActivity;
 import com.bora.Activitys.Autenticacao.RecuperSenhaActivity;
+import com.bora.Funcoes.DAO.Usuario.UsuarioDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityCadastroBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class CadastroActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ActivityCadastroBinding binding;
+    private UsuarioDAO usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class CadastroActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         binding.btnCadastrar.setOnClickListener(v -> {validarDados();});
         binding.ClickRecuperacao.setOnClickListener(v -> { startActivity(new Intent(this, RecuperSenhaActivity.class)); });
+        usuario = new UsuarioDAO(this);
     }
 
     private void validarDados(){
@@ -54,6 +56,7 @@ public class CadastroActivity extends AppCompatActivity {
             if(task.isSuccessful()){
                 finish();
                 Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
+                usuario.usuarioDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
                 startActivity(new Intent(this, LoginActivity.class));
             } else {
                 binding.progressBar.setVisibility(View.GONE);
