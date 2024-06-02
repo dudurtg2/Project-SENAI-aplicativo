@@ -23,7 +23,10 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         auth = FirebaseAuth.getInstance();
         binding.btnRecuperar.setOnClickListener(v -> {validateData();});
-        binding.ClickLogin.setOnClickListener(v -> { startActivity(new Intent(this, LoginActivity.class));});
+        binding.ClickLogin.setOnClickListener(v -> {
+            startActivity(new Intent(this, LoginActivity.class));
+            overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+        });
     }
 
     private void validateData(){

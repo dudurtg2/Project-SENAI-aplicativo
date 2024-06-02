@@ -46,11 +46,16 @@ public class LoginActivity extends AppCompatActivity {
 
         binding.ClickCadastro.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
         auth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         binding.btnLogin.setOnClickListener(v -> validateData());
-        binding.ClickRecuperacao.setOnClickListener(v -> startActivity(new Intent(this, RecoverPasswordActivity.class)));
+
+        binding.ClickRecuperacao.setOnClickListener(v -> {
+            startActivity(new Intent(this, RecoverPasswordActivity.class));
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        });
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -137,6 +142,7 @@ public class LoginActivity extends AppCompatActivity {
                             DocumentSnapshot document = task.getResult();
                             if (document != null && document.exists()) {
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                overridePendingTransition(R.anim.slide_instante, R.anim.slide_instante);
                                 finish();
                             } else {
 

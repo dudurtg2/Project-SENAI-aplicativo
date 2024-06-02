@@ -15,9 +15,11 @@ public class SplashActivily extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash_activily);
-        new Handler(getMainLooper()).postDelayed(()-> {
-            finish();
+
+        new Handler(getMainLooper()).postDelayed(() -> {
             startActivity(new Intent(this, LoginActivity.class));
+            overridePendingTransition(R.anim.slide_instante, R.anim.slide_instante);
+            finish();
         }, 2000);
     }
 }

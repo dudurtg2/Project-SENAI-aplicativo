@@ -27,10 +27,14 @@ public class RegisterActivity extends AppCompatActivity {
 
         binding.ClickLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
+            overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
         });
         auth = FirebaseAuth.getInstance();
         binding.btnCadastrar.setOnClickListener(v -> {validateData();});
-        binding.ClickRecuperacao.setOnClickListener(v -> { startActivity(new Intent(this, RecoverPasswordActivity.class)); });
+        binding.ClickRecuperacao.setOnClickListener(v -> {
+            startActivity(new Intent(this, RecoverPasswordActivity.class));
+            overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
+        });
         userDAO = new UserDAO(this);
     }
 
@@ -58,6 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                 userDAO.userDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
                 startActivity(new Intent(this, LoginActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else {
                 binding.progressBar.setVisibility(View.GONE);
                 Toast.makeText(this, "Erro ao cadastrar", Toast.LENGTH_SHORT).show();
