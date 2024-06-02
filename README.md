@@ -19,7 +19,7 @@
  - Ferramentas de Controle de Versão: Git
    
 ### **Como Executar o Projeto**
- - git clone https://github.com/seu-usuario/Project-SENAI-aplicativo.git
+ - git clone https://github.com/dudurtg2/Project-SENAI-aplicativo.git
  - Abra o projeto no Android Studio.
  - Sincronize as dependências do Gradle.
  - Conecte um dispositivo Android ou utilize um emulador.
