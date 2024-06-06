@@ -33,7 +33,10 @@
             android:name=".Activitys.Authentication.Login.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Main.First.SplashActivily"
+            android:name=".Activitys.Main.Profile.ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activitys.Main.First.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

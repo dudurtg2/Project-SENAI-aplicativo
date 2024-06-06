@@ -36,7 +36,7 @@ public class UserProfile extends AppCompatActivity {
             String email = currentUser.getEmail();
             binding.email.setText(email);
         }
-        ;
+
         if (currentUser != null) {
             DocumentReference docRef = db.collection("usuarios").document(currentUser.getUid());
             docRef.get().addOnCompleteListener(task -> {

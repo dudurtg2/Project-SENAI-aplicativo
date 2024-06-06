@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import com.bora.Activitys.Main.MainActivity;
+import com.bora.Activitys.Main.Profile.ProfileActivity;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,18 +33,18 @@ public class ImageUploaderDAO {
         this.storageReference = FirebaseStorage.getInstance().getReference(currentUser.getUid());
     }
 
-    public void openFileChooser(MainActivity mainActivity) {
+    public void openFileChooser(ProfileActivity profileActivity) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        mainActivity.startActivityForResult(intent, mainActivity.PICK_IMAGE_REQUEST);
+        profileActivity.startActivityForResult(intent, profileActivity.PICK_IMAGE_REQUEST);
     }
 
-    public void handleImageResult(int requestCode, int resultCode, @Nullable Intent data, MainActivity mainActivity) {
-        if (requestCode == mainActivity.PICK_IMAGE_REQUEST && resultCode == mainActivity.RESULT_OK && data != null && data.getData() != null) {
+    public void handleImageResult(int requestCode, int resultCode, @Nullable Intent data, ProfileActivity profileActivity) {
+        if (requestCode == profileActivity.PICK_IMAGE_REQUEST && resultCode == profileActivity.RESULT_OK && data != null && data.getData() != null) {
             Uri imageUri = data.getData();
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(mainActivity.getContentResolver(), imageUri);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(profileActivity.getContentResolver(), imageUri);
                 Bitmap resizedBitmap = resizeBitmap(bitmap, 256, 256);
                 uploadFile(resizedBitmap);
             } catch (IOException e) {
@@ -76,9 +77,9 @@ public class ImageUploaderDAO {
         if (currentUser != null) {
             StorageReference gsReference = storageReference.child("profile.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                Picasso.get().load(uri).into(((MainActivity) context).binding.imageButtonPerfil);
+                Picasso.get().load(uri).into(((ProfileActivity) context).binding.imageButtonPerfil);
             }).addOnFailureListener(exception -> {
-                ((MainActivity) context).binding.imageButtonPerfil.setImageResource(R.drawable.a);
+                ((ProfileActivity) context).binding.imageButtonPerfil.setImageResource(R.drawable.a);
             });
         }
     }

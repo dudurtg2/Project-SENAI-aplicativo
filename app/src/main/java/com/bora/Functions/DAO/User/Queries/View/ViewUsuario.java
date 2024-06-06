@@ -10,7 +10,7 @@ import com.bora.R;
 
 public class ViewUsuario extends RecyclerView.ViewHolder {
     protected ImageView imageViewUsuario;
-
+    protected ImageView imageViewEditar;
     protected TextView TextNome;
     protected TextView TextEndereco;
     protected TextView TextTelefone;
@@ -20,6 +20,7 @@ public class ViewUsuario extends RecyclerView.ViewHolder {
         TextEndereco = v.findViewById(R.id.TextEndereco);
         TextTelefone = v.findViewById(R.id.TextTelefone);
         imageViewUsuario = v.findViewById(R.id.imageViewUsuario);
+        imageViewEditar = v.findViewById(R.id.imageView2);
 
     }
 

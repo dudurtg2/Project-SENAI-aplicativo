@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.R;
 
-public class SplashActivily extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

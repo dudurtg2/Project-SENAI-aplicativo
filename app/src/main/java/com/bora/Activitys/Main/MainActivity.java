@@ -1,4 +1,6 @@
 package com.bora.Activitys.Main;
+import com.bora.Activitys.Authentication.RecoverPasswordActivity;
+import com.bora.Activitys.Main.Profile.ProfileActivity;
 import com.bora.Functions.DAO.User.Updates.ImageUploaderDAO;
 
 import android.content.Intent;
@@ -18,11 +20,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-    public static final int PICK_IMAGE_REQUEST = 1;
     public ActivityMainBinding binding;
-    private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
-    private ImageUploaderDAO imageUploader;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,82 +30,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        imageUploader = new ImageUploaderDAO(this);
+        binding.imageButtonBusca.setOnClickListener(v -> { startActivity(new Intent(this, ProfileActivity.class));} );
+        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity(new Intent(this, UserProfile.class));} );
 
-        binding.BTMINSERTE.setOnClickListener(v -> save());
-
-        binding.imageButtonBusca.setOnClickListener(v -> startActivity(new Intent(this, UserResults.class)));
-
-        binding.imageButtonUsuario.setOnClickListener(v -> startActivity(new Intent(this, UserProfile.class)));
-
-        binding.imageButtonPerfil.setOnClickListener(v -> imageUploader.openFileChooser(this));
-
-        imageUploader.loadImagem();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        imageUploader.handleImageResult(requestCode, resultCode, data, this);
-    }
-
-    private void save() {
-        UserDAO userDAO = new UserDAO(this);
-
-        EditText[] fields = new EditText[]{
-                binding.Editnome,
-                binding.Editendereco,
-                binding.Edittelefone,
-        };
-
-        for (EditText field : fields) {
-            if (field.getText().toString().isEmpty()) {
-                Toast.makeText(this, "Nome, Telefone e Endereço são obrigatórios", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-
-        String table;
-        String cpf;
-        String rg;
-
-        if (!binding.EditCPF.getText().toString().isEmpty()) {
-            if (!Verifiers.verifierCPF(binding.EditCPF.getText().toString())) {
-                Toast.makeText(this, "CPF inválido", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                cpf = binding.EditCPF.getText().toString();
-            }
-        } else {
-            cpf = binding.EditCPF.getText().toString();
-        }
-
-        if (!binding.EditRG.getText().toString().isEmpty()) {
-            if (!Verifiers.verifierRG(binding.EditCPF.getText().toString())) {
-                Toast.makeText(this, "RG inválido", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                rg = binding.EditRG.getText().toString();
-            }
-        } else {
-            rg = binding.EditRG.getText().toString();
-        }
-
-        if (binding.Edittable.getText().toString().isEmpty()) {
-            table = binding.Edittable.getText().toString();
-        } else {
-            table = "usuarios";
-        }
-
-        String nome = binding.Editnome.getText().toString();
-        String endereco = binding.Editendereco.getText().toString();
-        String telefone = binding.Edittelefone.getText().toString();
-        String dataNascimento = binding.EditdataNascimento.getText().toString();
-
-        userDAO.userDTO(table, nome, endereco, telefone, dataNascimento, cpf, rg);
-
-        Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
     }
 }
