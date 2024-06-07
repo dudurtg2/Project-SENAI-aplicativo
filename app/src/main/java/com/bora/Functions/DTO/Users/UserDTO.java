@@ -9,7 +9,6 @@ public class UserDTO {
     private String number;
     private String birthDate;
     private String cpf;
-    private String rg;
     private int imagem;
     private String id;
 
@@ -21,12 +20,11 @@ public class UserDTO {
         this.id = id;
     }
 
-    public UserDTO(String name, String address, String number, String birthDate, String cpf, String rg) {
+    public UserDTO(String name, String address, String number, String birthDate, String cpf) {
         this.name = name;
         this.address = address;
         this.number = number;
         this.birthDate = birthDate;
         this.cpf = cpf;
-        this.rg = rg;
     }
 }

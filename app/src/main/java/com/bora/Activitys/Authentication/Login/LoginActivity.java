@@ -157,7 +157,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void insertUserNoFirestore(FirebaseUser user) {
         UserDAO usuarioDAO = new UserDAO(this);
-        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
+        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado");
 
         startActivity(new Intent(this, MainActivity.class));
         finish();

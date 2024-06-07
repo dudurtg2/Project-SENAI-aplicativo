@@ -22,18 +22,16 @@ public class UserDAO {
         this.context = context;
     }
 
-    public void userDTO(String table, String name, String address, String number, String birthDate, String cpf, String rg) {
+    public void userDTO(String table, String name, String address, String number, String birthDate, String cpf) {
         if (birthDate.isEmpty()) {
             birthDate = "Data de nascimento não informada";
         }
         if (cpf.isEmpty()) {
             cpf = "CPF não informado";
         }
-        if (rg.isEmpty()) {
-            rg = "RG não informado";
-        }
 
-        UserDTO userDTO = new UserDTO(name, address, number, birthDate, cpf, rg);
+
+        UserDTO userDTO = new UserDTO(name, address, number, birthDate, cpf);
         writeNewUser(table, userDTO);
     }
 
@@ -68,7 +66,6 @@ public class UserDAO {
                 query.put("telefone", userDTO.getNumber());
                 query.put("dataNascimento", userDTO.getBirthDate());
                 query.put("cpf", userDTO.getCpf());
-                query.put("rg", userDTO.getRg());
                 query.put("uid", uid);
                 query.put("data", currentMinutesOfYear);
 

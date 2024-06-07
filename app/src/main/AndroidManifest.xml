@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -17,26 +16,34 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
+
         <activity
             android:name=".Activitys.Users.Profiles.UserProfile"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activitys.Users.Queries.UserResults"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activitys.Authentication.RecoverPasswordActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activitys.Authentication.Register.RegisterActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activitys.Authentication.Login.LoginActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activitys.Main.Profile.ProfileActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".Activitys.Main.First.SplashActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -45,6 +52,7 @@
         </activity>
         <activity
             android:name=".Activitys.Main.MainActivity"
+            android:screenOrientation="portrait"
             android:exported="false">
         </activity>
     </application>

@@ -65,9 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
-        String table;
         String cpf;
-        String rg;
 
         if (!binding.EditCPF.getText().toString().isEmpty()) {
             if (!Verifiers.verifierCPF(binding.EditCPF.getText().toString())) {
@@ -79,30 +77,12 @@ public class ProfileActivity extends AppCompatActivity {
         } else {
             cpf = binding.EditCPF.getText().toString();
         }
-
-        if (!binding.EditRG.getText().toString().isEmpty()) {
-            if (!Verifiers.verifierRG(binding.EditCPF.getText().toString())) {
-                Toast.makeText(this, "RG inválido", Toast.LENGTH_SHORT).show();
-                return;
-            } else {
-                rg = binding.EditRG.getText().toString();
-            }
-        } else {
-            rg = binding.EditRG.getText().toString();
-        }
-
-        if (binding.Edittable.getText().toString().isEmpty()) {
-            table = binding.Edittable.getText().toString();
-        } else {
-            table = "usuarios";
-        }
-
         String nome = binding.Editnome.getText().toString();
         String endereco = binding.Editendereco.getText().toString();
         String telefone = binding.Edittelefone.getText().toString();
         String dataNascimento = binding.EditdataNascimento.getText().toString();
 
-        userDAO.userDTO(table, nome, endereco, telefone, dataNascimento, cpf, rg);
+        userDAO.userDTO("usuarios", nome, endereco, telefone, dataNascimento, cpf);
 
         Toast.makeText(this, "Dados salvos com sucesso", Toast.LENGTH_SHORT).show();
     }
