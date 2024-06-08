@@ -8,7 +8,7 @@
     tools:context=".Activitys.Main.Profile.ProfileActivity">
 
     <EditText
-        android:id="@+id/Editnome"
+        android:id="@+id/ProfileNameShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/Editendereco"
+        android:id="@+id/ProfileAdressShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -34,10 +34,10 @@
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Editnome" />
+        app:layout_constraintTop_toBottomOf="@+id/ProfileNameShow" />
 
     <EditText
-        android:id="@+id/Edittelefone"
+        android:id="@+id/ProfileNumberShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -48,10 +48,10 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Editendereco" />
+        app:layout_constraintTop_toBottomOf="@+id/ProfileAdressShow" />
 
     <EditText
-        android:id="@+id/EditdataNascimento"
+        android:id="@+id/ProfileBirthDateShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -63,10 +63,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Edittelefone" />
+        app:layout_constraintTop_toBottomOf="@+id/ProfileNumberShow" />
 
     <EditText
-        android:id="@+id/EditCPF"
+        android:id="@+id/ProfileCPFShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -78,12 +78,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditdataNascimento" />
-
+        app:layout_constraintTop_toBottomOf="@+id/ProfileBirthDateShow" />
 
 
     <Button
-        android:id="@+id/BTMINSERTE"
+        android:id="@+id/ProfileButtonUpdateProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -93,16 +92,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditCPF" />
+        app:layout_constraintTop_toBottomOf="@+id/ProfileCPFShow"
+        tools:visibility="gone" />
 
     <ProgressBar
-        android:id="@+id/progressBarInsert"
+        android:id="@+id/ProfileProgressBar"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/BTMINSERTE"
+        app:layout_constraintTop_toBottomOf="@+id/ProfileButtonUpdateProfile"
         tools:layout_editor_absoluteX="177dp" />
 
     <ImageView
@@ -114,7 +114,7 @@
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="64dp"
         android:background="@drawable/a"
-        app:layout_constraintBottom_toTopOf="@+id/Editnome"
+        app:layout_constraintBottom_toTopOf="@+id/ProfileNameShow"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

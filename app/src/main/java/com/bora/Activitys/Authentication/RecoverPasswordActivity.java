@@ -8,18 +8,19 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.R;
-import com.bora.databinding.ActivityRecuperSenhaBinding;
+import com.bora.databinding.ActivityAuthenticatorRecoverPasswordBinding;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RecoverPasswordActivity extends AppCompatActivity {
     private FirebaseAuth auth;
-    private ActivityRecuperSenhaBinding binding;
+    private ActivityAuthenticatorRecoverPasswordBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_recuper_senha);
-        binding = ActivityRecuperSenhaBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_authenticator_recover_password);
+        binding = ActivityAuthenticatorRecoverPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         auth = FirebaseAuth.getInstance();
         binding.btnRecuperar.setOnClickListener(v -> {validateData();});

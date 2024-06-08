@@ -1,25 +1,19 @@
 package com.bora.Functions.DAO.Dishes.Queries.View;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bora.Functions.DAO.User.Queries.View.ViewUsuario;
 import com.bora.Functions.DTO.Dishes.DishesDTO;
-import com.bora.Functions.DTO.Users.UserDTO;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -38,7 +32,7 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
     @NonNull
     @Override
     public ViewDishes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewDishes(LayoutInflater.from(context).inflate(R.layout.itensmainpratos, parent, false));
+        return new ViewDishes(LayoutInflater.from(context).inflate(R.layout.main_colletion_samples_down, parent, false));
     }
 
     @Override

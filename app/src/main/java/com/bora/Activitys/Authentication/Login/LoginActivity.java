@@ -14,7 +14,8 @@ import com.bora.Activitys.Authentication.RecoverPasswordActivity;
 import com.bora.Activitys.Main.MainActivity;
 import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.R;
-import com.bora.databinding.ActivityLoginBinding;
+import com.bora.databinding.ActivityAuthenticatorLoginBinding;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,7 +32,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth auth;
-    private ActivityLoginBinding binding;
+    private ActivityAuthenticatorLoginBinding binding;
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseFirestore db;
@@ -40,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_login);
-        binding = ActivityLoginBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_authenticator_login);
+        binding = ActivityAuthenticatorLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.ClickCadastro.setOnClickListener(v -> {

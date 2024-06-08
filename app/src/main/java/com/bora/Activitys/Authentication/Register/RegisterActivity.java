@@ -10,19 +10,19 @@ import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.Activitys.Authentication.RecoverPasswordActivity;
 import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.R;
-import com.bora.databinding.ActivityCadastroBinding;
+import com.bora.databinding.ActivityAuthenticatorRegisterBinding;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth auth;
-    private ActivityCadastroBinding binding;
+    private ActivityAuthenticatorRegisterBinding binding;
     private UserDAO userDAO;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_cadastro);
-        binding = ActivityCadastroBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_authenticator_register);
+        binding = ActivityAuthenticatorRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.ClickLogin.setOnClickListener(v -> {
