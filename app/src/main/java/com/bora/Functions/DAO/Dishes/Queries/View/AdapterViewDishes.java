@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -40,7 +42,15 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        holder.imageViewDishes.setImageResource(R.drawable.a);
+
+        if (currentUser != null) {
+            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/" + dishesDTO.get(position).getUid() + "/DishesMainDown.png");
+            gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                Picasso.get().load(uri).into(holder.imageViewDishes);
+            }).addOnFailureListener(exception -> {
+                holder.imageViewDishes.setImageResource(R.drawable.a);
+            });
+        }
         holder.imageDishesBack.setImageResource(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal_background);
         holder.ButtonEditar.setText(dishesDTO.get(position).getName());
         holder.itemView.setOnClickListener(view -> {

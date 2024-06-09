@@ -5,13 +5,15 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.bora.Activitys.Main.Dishes.DishesActivity;
 import com.bora.Activitys.Main.Profile.ProfileActivity;
 import com.bora.Activitys.Users.Queries.UserResults;
 import com.bora.Functions.DAO.Dishes.Queries.View.AdapterViewDishes;
+import com.bora.Functions.DAO.Dishes.Queries.QueryDAO;
 import com.bora.Functions.DTO.Dishes.DishesDTO;
 import com.bora.R;
 import com.bora.databinding.ActivityMainBinding;
-
 
 import java.util.ArrayList;
 
@@ -34,19 +36,18 @@ public class MainActivity extends AppCompatActivity {
         binding.imageButtonUsuario.setOnClickListener(v -> {
             startActivity(new Intent(this, UserResults.class));
         });
-
+        binding.button2.setOnClickListener(v -> {
+            startActivity(new Intent(this, DishesActivity.class));
+        });
         // Query and display items
         QueryItems();
     }
 
     private void QueryItems() {
-        ArrayList<DishesDTO> dishesDTO = new ArrayList<>();
-        dishesDTO.add(new DishesDTO("Dish 1"));
-        dishesDTO.add(new DishesDTO("Dish 2"));
-        dishesDTO.add(new DishesDTO("Dish 3"));
-        dishesDTO.add(new DishesDTO("Dish 4"));
-
-        binding.MainPrincipalViewPratos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        binding.MainPrincipalViewPratos.setAdapter(new AdapterViewDishes(getApplicationContext(), dishesDTO));
+        QueryDAO queryDAO = new QueryDAO(this);
+        queryDAO.readData(dishesDTO -> {
+            binding.MainPrincipalViewPratos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            binding.MainPrincipalViewPratos.setAdapter(new AdapterViewDishes(getApplicationContext(), dishesDTO));
+        });
     }
 }
