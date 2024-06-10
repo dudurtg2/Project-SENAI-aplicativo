@@ -30,7 +30,7 @@ public class ImageUploaderDAO {
         this.context = context;
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         this.currentUser = mAuth.getCurrentUser();
-        this.storageReference = FirebaseStorage.getInstance().getReference(currentUser.getUid());
+        this.storageReference = FirebaseStorage.getInstance().getReference().child("profile_images").child(currentUser.getUid());
     }
 
     public void openFileChooser(ProfileActivity profileActivity) {
@@ -59,7 +59,7 @@ public class ImageUploaderDAO {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
 
-            StorageReference fileReference = storageReference.child("profile.png");
+            StorageReference fileReference = storageReference.child("profile_images").child("profile.png");
 
             fileReference.putBytes(data)
                     .addOnSuccessListener(taskSnapshot -> {
@@ -75,7 +75,7 @@ public class ImageUploaderDAO {
 
     public void loadImagem() {
         if (currentUser != null) {
-            StorageReference gsReference = storageReference.child("profile.png");
+            StorageReference gsReference = storageReference.child("profile_images").child("profile.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Picasso.get().load(uri).into(((ProfileActivity) context).binding.imageButtonPerfil);
             }).addOnFailureListener(exception -> {

@@ -13,5 +13,6 @@
     <string-array name="dishes_options">
         <item>dishesDown</item>
         <item>dishesTop</item>
+        <item>dishesPrincipal</item>
     </string-array>
 </resources>

@@ -50,7 +50,7 @@ public class AdapterViewUsuario extends RecyclerView.Adapter<ViewUsuario> {
         holder.imageViewEditar.setImageResource(com.google.android.gms.base.R.drawable.common_google_signin_btn_text_light_normal_background);
 
         if (currentUser != null) {
-            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/" + usuarioDTO.get(position).getId() + "/profile.png");
+            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/profile_images/" + usuarioDTO.get(position).getId() + "/profile.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Picasso.get().load(uri).into(holder.imageViewUsuario);
             }).addOnFailureListener(exception -> {

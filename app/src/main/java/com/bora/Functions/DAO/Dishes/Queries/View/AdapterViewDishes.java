@@ -1,6 +1,9 @@
 package com.bora.Functions.DAO.Dishes.Queries.View;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toast;
@@ -8,6 +11,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bora.Activitys.Authentication.Login.LoginActivity;
+import com.bora.Activitys.Main.Dishes.DishDetailsActivity;
 import com.bora.Functions.DTO.Dishes.DishesDTO;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,10 +28,10 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
     private FirebaseAuth mAuth;
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseFirestore db;
-    Context context;
-    StorageReference gsReference;
-    List<DishesDTO> dishesDTO;
-
+    private Context context;
+    private StorageReference gsReference;
+    private List<DishesDTO> dishesDTO;
+    private String table;
     public AdapterViewDishes(Context context, List<DishesDTO> dishesDTO) {
         this.context = context;
         this.dishesDTO = dishesDTO;
@@ -48,10 +53,12 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
             gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid() + "/dishesDown.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Picasso.get().load(uri).into(holder.imageViewDishes);
+                table = "dishesDown";
             }).addOnFailureListener(e -> {
                 gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid() + "/dishesTop.png");
                 gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     Picasso.get().load(uri).into(holder.imageViewDishes);
+                    table = "dishesTop";
                 });
             });
         }
@@ -59,7 +66,13 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
         holder.imageDishesBack.setImageResource(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal_background);
         holder.ButtonEditar.setText(dishesDTO.get(position).getName());
         holder.itemView.setOnClickListener(view -> {
-            Toast.makeText(context, "Clicou em " + dishesDTO.get(position).getName(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(view.getContext(), DishDetailsActivity.class);
+            intent.putExtra("uid", dishesDTO.get(position).getUid());
+            intent.putExtra("table", table);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            view.getContext().startActivity(intent);
+
         });
     }
 
