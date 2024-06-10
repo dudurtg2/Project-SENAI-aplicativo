@@ -58,7 +58,7 @@ public class UserDAO {
                         }
 
                         HashMap<String, Object> query = new HashMap<>();
-
+                        query.put("admin", false);
                         query.put("nome", userDTO.getName());
                         query.put("endereco", userDTO.getAddress());
                         query.put("telefone", userDTO.getNumber());

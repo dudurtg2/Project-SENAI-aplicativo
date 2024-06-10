@@ -18,7 +18,7 @@ public class DishesDAO {
         this.mAuth = FirebaseAuth.getInstance();
     }
 
-    public void addDishToFirestore(String name, String description, String uid) {
+    public void addDishToFirestore(String name, String description, String uid, String table) {
         DishesDTO dishesDTO = new DishesDTO(name, description, uid);
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -28,7 +28,13 @@ public class DishesDAO {
         query.put("nome", dishesDTO.getName());
         query.put("descrisao", dishesDTO.getDescription());
 
-        firestore.collection("dishes")
+        if (table.equals("dishesDown")) {
+            query.put("local", 0);
+        } else {
+            query.put("local", 1);
+        }
+
+        firestore.collection(table)
                 .document(uid)
                 .set(query)
                 .addOnSuccessListener(aVoid ->

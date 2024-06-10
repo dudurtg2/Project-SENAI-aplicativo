@@ -11,6 +11,7 @@
         android:id="@+id/MainPratosimageBack"
         android:layout_width="204dp"
         android:layout_height="204dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/MainPratosButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

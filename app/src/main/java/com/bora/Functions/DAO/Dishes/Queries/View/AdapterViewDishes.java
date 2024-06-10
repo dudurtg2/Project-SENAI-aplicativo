@@ -24,6 +24,7 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
     private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseFirestore db;
     Context context;
+    StorageReference gsReference;
     List<DishesDTO> dishesDTO;
 
     public AdapterViewDishes(Context context, List<DishesDTO> dishesDTO) {
@@ -44,13 +45,17 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
-            StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/" + dishesDTO.get(position).getUid() + "/DishesMainDown.png");
+            gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid() + "/dishesDown.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Picasso.get().load(uri).into(holder.imageViewDishes);
-            }).addOnFailureListener(exception -> {
-                holder.imageViewDishes.setImageResource(R.drawable.a);
+            }).addOnFailureListener(e -> {
+                gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid() + "/dishesTop.png");
+                gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Picasso.get().load(uri).into(holder.imageViewDishes);
+                });
             });
         }
+
         holder.imageDishesBack.setImageResource(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal_background);
         holder.ButtonEditar.setText(dishesDTO.get(position).getName());
         holder.itemView.setOnClickListener(view -> {

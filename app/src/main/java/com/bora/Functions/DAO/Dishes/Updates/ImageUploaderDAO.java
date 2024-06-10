@@ -29,7 +29,7 @@ public class ImageUploaderDAO {
         this.context = context;
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         this.currentUser = mAuth.getCurrentUser();
-        this.storageReference = FirebaseStorage.getInstance().getReference(Uid);
+        this.storageReference = FirebaseStorage.getInstance().getReference().child("disher").child(Uid);
     }
 
     public void openFileChooser(DishesActivity dishesActivity) {
@@ -52,17 +52,17 @@ public class ImageUploaderDAO {
         }
     }
 
-    public void uploadImage() {
-        uploadFile(resizedBitmap);
+    public void uploadImage(String fileName) {
+        uploadFile(resizedBitmap, fileName);
     }
 
-    private void uploadFile(Bitmap bitmap) {
+    private void uploadFile(Bitmap bitmap, String fileName) {
         if (bitmap != null) {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
 
-            StorageReference fileReference = storageReference.child("DishesMainDown.png");
+            StorageReference fileReference = storageReference.child(fileName+".png");
 
             fileReference.putBytes(data)
                     .addOnSuccessListener(taskSnapshot -> {

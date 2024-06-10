@@ -1,4 +1,4 @@
-package com.bora.Functions.DAO.Dishes.Queries;
+package com.bora.Functions.DAO.Dishes.Queries.Querys;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -26,7 +26,7 @@ public class QueryDAO {
     }
 
     public void readData(final FirestoreCallback firestoreCallback) {
-        db.collection("dishes")
+        db.collection("dishesDown")
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
