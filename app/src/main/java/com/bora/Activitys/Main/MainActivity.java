@@ -3,17 +3,15 @@ package com.bora.Activitys.Main;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import com.bora.Activitys.Main.Dishes.DishesActivity;
-import com.bora.Activitys.Main.Profile.ProfileActivity;
+import com.bora.Activitys.Dishes.DishesActivity;
+import com.bora.Activitys.Users.Profile.ProfileActivity;
 import com.bora.Activitys.Users.Queries.UserResults;
 import com.bora.Functions.DAO.Dishes.Queries.Querys.Query2DAO;
-import com.bora.Functions.DAO.Dishes.Queries.View.AdapterViewDishes;
 import com.bora.Functions.DAO.Dishes.Queries.Querys.QueryDAO;
+import com.bora.Functions.DAO.Dishes.Queries.View.AdapterViewDishes;
 import com.bora.R;
 import com.bora.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,15 +34,9 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.imageButtonBusca.setOnClickListener(v -> {
-            startActivity(new Intent(this, ProfileActivity.class));
-        });
-        binding.imageButtonUsuario.setOnClickListener(v -> {
-            startActivity(new Intent(this, UserResults.class));
-        });
-        binding.imageButton.setOnClickListener(v -> {
-            startActivity(new Intent(this, DishesActivity.class));
-        });
+        binding.imageButtonBusca.setOnClickListener(v -> { startActivity(new Intent(this, ProfileActivity.class)); });
+        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity(new Intent(this, UserResults.class)); });
+        binding.imageButton.setOnClickListener(v -> { startActivity(new Intent(this, DishesActivity.class)); });
         checkAdminStatus();
         QueryItems();
     }

@@ -4,18 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.bora.Activitys.Authentication.Register.RegisterActivity;
 import com.bora.Activitys.Authentication.RecoverPasswordActivity;
+import com.bora.Activitys.Authentication.Register.RegisterActivity;
 import com.bora.Activitys.Main.MainActivity;
 import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityAuthenticatorLoginBinding;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -30,7 +27,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
-
     private FirebaseAuth auth;
     private ActivityAuthenticatorLoginBinding binding;
     private static final int RC_SIGN_IN = 9001;
@@ -58,10 +54,7 @@ public class LoginActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         binding.Google.setOnClickListener(v -> signInWithGoogle());
@@ -72,12 +65,12 @@ public class LoginActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void validateData(){
+    private void validateData() {
         String email = binding.EditEmail.getText().toString().trim();
         String senha = binding.EditSenha.getText().toString().trim();
 
-        if(!email.isEmpty()){
-            if(!senha.isEmpty()){
+        if (!email.isEmpty()) {
+            if (!senha.isEmpty()) {
                 FireBaseLoginAccount(email, senha);
                 binding.progressBar.setVisibility(View.VISIBLE);
             } else {
@@ -88,18 +81,17 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private void FireBaseLoginAccount(String email, String senha){
-        auth.signInWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(this, task -> {
-                    if(task.isSuccessful()){
-                        finish();
-                        Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(this, MainActivity.class));
-                    } else {
-                        binding.progressBar.setVisibility(View.GONE);
-                        Toast.makeText(this, "Email não cadastrado", Toast.LENGTH_SHORT).show();
-                    }
-                });
+    private void FireBaseLoginAccount(String email, String senha) {
+        auth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                finish();
+                Toast.makeText(this, "Login realizado com sucesso", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, MainActivity.class));
+            } else {
+                binding.progressBar.setVisibility(View.GONE);
+                Toast.makeText(this, "Email não cadastrado", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -121,39 +113,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
-        auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null))
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
-                        FirebaseUser user = auth.getCurrentUser();
-                        if (user != null) {
-                            checkIfUserExists(user);
-                        }
-                    } else {
-                        Toast.makeText(this, "Login Falhou", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        auth.signInWithCredential(GoogleAuthProvider.getCredential(idToken, null)).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
+                FirebaseUser user = auth.getCurrentUser();
+                if (user != null) {
+                    checkIfUserExists(user);
+                }
+            } else {
+                Toast.makeText(this, "Login Falhou", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void checkIfUserExists(FirebaseUser user) {
-        db.collection("usuarios").document(user.getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document != null && document.exists()) {
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                overridePendingTransition(R.anim.slide_instante, R.anim.slide_instante);
-                                finish();
-                            } else {
-
-                                insertUserNoFirestore(user);
-                            }
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show();
-                        }
+        db.collection("usuarios").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null && document.exists()) {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        overridePendingTransition(R.anim.slide_instante, R.anim.slide_instante);
+                        finish();
+                    } else {
+                        insertUserNoFirestore(user);
                     }
-                });
+                } else {
+                    Toast.makeText(LoginActivity.this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 
     private void insertUserNoFirestore(FirebaseUser user) {

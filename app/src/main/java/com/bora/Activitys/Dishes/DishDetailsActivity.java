@@ -1,10 +1,9 @@
-package com.bora.Activitys.Main.Dishes;
+package com.bora.Activitys.Dishes;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.R;
-import com.bora.databinding.ActivityDishDetailsBinding;
+import com.bora.databinding.ActivityDetailsDishesBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
@@ -15,7 +14,7 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 public class DishDetailsActivity extends AppCompatActivity {
-    private ActivityDishDetailsBinding binding;
+    private ActivityDetailsDishesBinding binding;
     private FirebaseFirestore firestore;
     private DocumentReference docRef;
     private FirebaseAuth mAuth;
@@ -26,7 +25,7 @@ public class DishDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityDishDetailsBinding.inflate(getLayoutInflater());
+        binding = ActivityDetailsDishesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
@@ -60,19 +59,13 @@ public class DishDetailsActivity extends AppCompatActivity {
                         binding.detailsDescriptionShow.setText(document.getString("descrisao"));
                     }
                     gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + uid + "/dishesDown.png");
-                    gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                        Picasso.get().load(uri).into(binding.detailsImageShow);
-                    }).addOnFailureListener(e -> {
+                    gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(binding.detailsImageShow); }).addOnFailureListener(e -> {
                         gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + uid + "/dishesTop.png");
-                        gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                            Picasso.get().load(uri).into(binding.detailsImageShow);
-                        });
+                        gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(binding.detailsImageShow); });
                     });
                 } else {
-
                 }
             } else {
-
             }
         });
     }

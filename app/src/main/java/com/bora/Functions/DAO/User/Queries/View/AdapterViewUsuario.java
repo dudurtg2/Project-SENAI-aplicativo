@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bora.Functions.DTO.Users.UserDTO;
@@ -17,7 +16,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class AdapterViewUsuario extends RecyclerView.Adapter<ViewUsuario> {
@@ -51,17 +49,10 @@ public class AdapterViewUsuario extends RecyclerView.Adapter<ViewUsuario> {
 
         if (currentUser != null) {
             StorageReference gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/profile_images/" + usuarioDTO.get(position).getId() + "/profile.png");
-            gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                Picasso.get().load(uri).into(holder.imageViewUsuario);
-            }).addOnFailureListener(exception -> {
-                holder.imageViewUsuario.setImageResource(R.drawable.a);
-            });
+            gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(holder.imageViewUsuario); }).addOnFailureListener(exception -> { holder.imageViewUsuario.setImageResource(R.drawable.a); });
         }
 
-
-        holder.itemView.setOnClickListener(view -> {
-            Toast.makeText(context, "Clicou em " + usuarioDTO.get(position).getName(), Toast.LENGTH_SHORT).show();
-        });
+        holder.itemView.setOnClickListener(view -> { Toast.makeText(context, "Clicou em " + usuarioDTO.get(position).getName(), Toast.LENGTH_SHORT).show(); });
     }
 
     @Override

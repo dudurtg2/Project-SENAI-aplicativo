@@ -1,4 +1,4 @@
-package com.bora.Activitys.Main.Profile;
+package com.bora.Activitys.Users.Profile;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,19 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
         binding.ProfileButtonUpdateProfile.setVisibility(View.GONE);
 
         binding.ProfileButtonUpdateProfile.setOnClickListener(v -> save());
-        EditText[] fields = new EditText[]{
-                binding.ProfileNameShow,
-                binding.ProfileAdressShow,
-                binding.ProfileNumberShow,
-                binding.ProfileBirthDateShow,
-                binding.ProfileCPFShow
-        };
+        EditText[] fields = new EditText[] {binding.ProfileNameShow, binding.ProfileAdressShow, binding.ProfileNumberShow, binding.ProfileBirthDateShow, binding.ProfileCPFShow};
 
         for (EditText field : fields) {
             field.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                }
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
                 @Override
                 public void onTextChanged(CharSequence s, int start, int before, int count) {
                     if (s.length() > 0) {
@@ -75,8 +68,7 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
                 @Override
-                public void afterTextChanged(Editable s) {
-                }
+                public void afterTextChanged(Editable s) {}
             });
         }
 
@@ -202,16 +194,14 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 }
 
-                new UserDAO(this)
-                        .userDTO("usuarios", profileName, profileAdress, profileNumber, profileBirthDate, profileCPF)
-                        .addOnSuccessListener(aVoid -> {
-                            binding.ProfileNameShow.setText("");
-                            binding.ProfileAdressShow.setText("");
-                            binding.ProfileNumberShow.setText("");
-                            binding.ProfileBirthDateShow.setText("");
-                            binding.ProfileCPFShow.setText("");
-                            reloadShowInfomations();
-                        });
+                new UserDAO(this).userDTO("usuarios", profileName, profileAdress, profileNumber, profileBirthDate, profileCPF).addOnSuccessListener(aVoid -> {
+                    binding.ProfileNameShow.setText("");
+                    binding.ProfileAdressShow.setText("");
+                    binding.ProfileNumberShow.setText("");
+                    binding.ProfileBirthDateShow.setText("");
+                    binding.ProfileCPFShow.setText("");
+                    reloadShowInfomations();
+                });
             }
         });
         binding.ProfileProgressBar.setVisibility(View.GONE);

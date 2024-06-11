@@ -17,10 +17,10 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Activitys.Main.Dishes.DishDetailsActivity"
+            android:name=".Activitys.Dishes.DishDetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".Activitys.Main.Dishes.DishesActivity"
+            android:name=".Activitys.Dishes.DishesActivity"
             android:exported="false" />
         <activity
             android:name=".Activitys.Users.Profiles.UserProfile"
@@ -43,7 +43,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activitys.Main.Profile.ProfileActivity"
+            android:name=".Activitys.Users.Profile.ProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

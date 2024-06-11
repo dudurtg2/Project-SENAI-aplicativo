@@ -2,11 +2,9 @@ package com.bora.Functions.DAO.Dishes.Updates;
 
 import android.content.Context;
 import android.widget.Toast;
-
 import com.bora.Functions.DTO.Dishes.DishesDTO;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 
 public class DishesDAO {
@@ -34,12 +32,6 @@ public class DishesDAO {
             query.put("local", 1);
         }
 
-        firestore.collection(table)
-                .document(uid)
-                .set(query)
-                .addOnSuccessListener(aVoid ->
-                        Toast.makeText(context, "Prato adicionado com sucesso!", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e ->
-                        Toast.makeText(context, "Falha ao adicionar prato: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        firestore.collection(table).document(uid).set(query).addOnSuccessListener(aVoid -> Toast.makeText(context, "Prato adicionado com sucesso!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(context, "Falha ao adicionar prato: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

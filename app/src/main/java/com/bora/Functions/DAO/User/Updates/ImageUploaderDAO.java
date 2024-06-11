@@ -8,20 +8,17 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
 
-import com.bora.Activitys.Main.MainActivity;
-import com.bora.Activitys.Main.Profile.ProfileActivity;
+import com.bora.Activitys.Users.Profile.ProfileActivity;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class ImageUploaderDAO {
-
     private final Context context;
     private final StorageReference storageReference;
     private final FirebaseUser currentUser;
@@ -76,11 +73,7 @@ public class ImageUploaderDAO {
     public void loadImagem() {
         if (currentUser != null) {
             StorageReference gsReference = storageReference.child("profile_images").child("profile.png");
-            gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
-                Picasso.get().load(uri).into(((ProfileActivity) context).binding.imageButtonPerfil);
-            }).addOnFailureListener(exception -> {
-                ((ProfileActivity) context).binding.imageButtonPerfil.setImageResource(R.drawable.a);
-            });
+            gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(((ProfileActivity) context).binding.imageButtonPerfil); }).addOnFailureListener(exception -> { ((ProfileActivity) context).binding.imageButtonPerfil.setImageResource(R.drawable.a); });
         }
     }
 

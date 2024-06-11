@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
         });
         auth = FirebaseAuth.getInstance();
-        binding.btnCadastrar.setOnClickListener(v -> {validateData();});
+        binding.btnCadastrar.setOnClickListener(v -> { validateData(); });
         binding.ClickRecuperacao.setOnClickListener(v -> {
             startActivity(new Intent(this, RecoverPasswordActivity.class));
             overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
@@ -38,12 +38,12 @@ public class RegisterActivity extends AppCompatActivity {
         userDAO = new UserDAO(this);
     }
 
-    private void validateData(){
+    private void validateData() {
         String email = binding.EditEmail.getText().toString().trim();
         String senha = binding.EditSenha.getText().toString().trim();
 
-        if(!email.isEmpty()){
-            if(!senha.isEmpty()){
+        if (!email.isEmpty()) {
+            if (!senha.isEmpty()) {
                 FireBaseRegistrationAccount(email, senha);
                 binding.progressBar.setVisibility(View.VISIBLE);
             } else {
@@ -53,11 +53,9 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
         }
     }
-    private void FireBaseRegistrationAccount(String email, String senha){
-        auth.createUserWithEmailAndPassword(
-                email, senha
-        ).addOnCompleteListener(this, task -> {
-            if(task.isSuccessful()){
+    private void FireBaseRegistrationAccount(String email, String senha) {
+        auth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
                 finish();
                 Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
                 userDAO.userDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(), "Não informado", "Não informado", "Não informado", "Não informado");
@@ -69,5 +67,4 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
 }

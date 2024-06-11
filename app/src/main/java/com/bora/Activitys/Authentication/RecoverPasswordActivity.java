@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bora.Activitys.Authentication.Login.LoginActivity;
 import com.bora.R;
 import com.bora.databinding.ActivityAuthenticatorRecoverPasswordBinding;
-
 import com.google.firebase.auth.FirebaseAuth;
 
 public class RecoverPasswordActivity extends AppCompatActivity {
@@ -23,16 +22,16 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         binding = ActivityAuthenticatorRecoverPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         auth = FirebaseAuth.getInstance();
-        binding.btnRecuperar.setOnClickListener(v -> {validateData();});
+        binding.btnRecuperar.setOnClickListener(v -> { validateData(); });
         binding.ClickLogin.setOnClickListener(v -> {
             startActivity(new Intent(this, LoginActivity.class));
             overridePendingTransition(R.anim.slide_out_right, R.anim.slide_in_left);
         });
     }
 
-    private void validateData(){
+    private void validateData() {
         String email = binding.EditEmail.getText().toString().trim();
-        if(!email.isEmpty()){
+        if (!email.isEmpty()) {
             FireBaseRecoverAccount(email);
             binding.progressBar.setVisibility(View.VISIBLE);
         } else {
@@ -40,11 +39,9 @@ public class RecoverPasswordActivity extends AppCompatActivity {
         }
     }
 
-    private void FireBaseRecoverAccount(String email){
-        auth.sendPasswordResetEmail(
-                email
-        ).addOnCompleteListener(this, task -> {
-            if(task.isSuccessful()){
+    private void FireBaseRecoverAccount(String email) {
+        auth.sendPasswordResetEmail(email).addOnCompleteListener(this, task -> {
+            if (task.isSuccessful()) {
                 finish();
                 Toast.makeText(this, "Email enviado", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, LoginActivity.class));

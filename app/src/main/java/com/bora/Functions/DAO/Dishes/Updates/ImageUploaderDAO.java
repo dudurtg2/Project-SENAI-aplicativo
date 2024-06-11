@@ -7,14 +7,11 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.widget.Toast;
-
-import com.bora.Activitys.Main.Dishes.DishesActivity;
-import com.bora.databinding.ActivityCreateDishesBinding;
+import com.bora.Activitys.Dishes.DishesActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -62,13 +59,9 @@ public class ImageUploaderDAO {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
 
-            StorageReference fileReference = storageReference.child(fileName+".png");
+            StorageReference fileReference = storageReference.child(fileName + ".png");
 
-            fileReference.putBytes(data)
-                    .addOnSuccessListener(taskSnapshot -> {
-                        Toast.makeText(context, "Upload bem-sucedido", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(context, "Falha no upload: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            fileReference.putBytes(data).addOnSuccessListener(taskSnapshot -> { Toast.makeText(context, "Upload bem-sucedido", Toast.LENGTH_SHORT).show(); }).addOnFailureListener(e -> Toast.makeText(context, "Falha no upload: " + e.getMessage(), Toast.LENGTH_SHORT).show());
 
         } else {
             Toast.makeText(context, "Nenhum arquivo selecionado", Toast.LENGTH_SHORT).show();
