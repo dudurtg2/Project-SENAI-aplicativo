@@ -91,6 +91,7 @@ public class DishDetailsActivity extends AppCompatActivity {
                     .addOnSuccessListener(aVoid -> Toast.makeText(this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e -> Toast.makeText(this, "Falha ao realizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         }).addOnFailureListener(e -> Toast.makeText(this, "Erro ao buscar documentos: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+        finish();
     }
 
 

@@ -65,7 +65,7 @@ class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
         holder.itemView.setOnClickListener(view -> {
             Toast.makeText(context, "Pedido realizado as " + dishesDTO.get(position).getData() , Toast.LENGTH_SHORT).show();
         });
-        
+
     }
 
     @Override public int getItemCount() {
