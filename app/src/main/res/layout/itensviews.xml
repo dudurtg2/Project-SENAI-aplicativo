@@ -20,47 +20,30 @@
         app:srcCompat="@drawable/common_google_signin_btn_text_light_normal_background" />
 
     <TextView
-        android:id="@+id/TextNome"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-
-        android:text="TextView"
-
-        app:layout_constraintEnd_toStartOf="@+id/TextTelefone"
-        app:layout_constraintStart_toEndOf="@+id/imageViewUsuario"
-        app:layout_constraintTop_toTopOf="@+id/imageViewUsuario" />
-
-    <TextView
-        android:id="@+id/TextTelefone"
+        android:id="@+id/DishesClientNameOrderShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-
         android:text="TextView"
-
-        app:layout_constraintBottom_toTopOf="@+id/TextEndereco"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/TextNome" />
+        app:layout_constraintStart_toEndOf="@+id/DishesImageOrderShow"
+        app:layout_constraintTop_toTopOf="@+id/DishesImageOrderShow" />
 
     <TextView
-        android:id="@+id/TextEndereco"
+        android:id="@+id/DishesNameOrderShow"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-
         android:text="TextView"
-
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewUsuario"
-        app:layout_constraintTop_toBottomOf="@+id/TextNome" />
+        app:layout_constraintStart_toEndOf="@+id/DishesImageOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesClientNameOrderShow" />
 
     <ImageView
-        android:id="@+id/imageViewUsuario"
+        android:id="@+id/DishesImageOrderShow"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"

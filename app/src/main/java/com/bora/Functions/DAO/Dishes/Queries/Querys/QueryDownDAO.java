@@ -8,12 +8,12 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Query2DAO {
+public class QueryDownDAO {
     private Context context;
     private FirebaseFirestore db;
     private List<DishesDTO> dishesList;
 
-    public Query2DAO(Context context) {
+    public QueryDownDAO(Context context) {
         this.context = context;
         this.db = FirebaseFirestore.getInstance();
         this.dishesList = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Query2DAO {
     public interface FirestoreCallback { void onCallback(List<DishesDTO> dishesList); }
 
     public void readData(final FirestoreCallback firestoreCallback) {
-        db.collection("dishesTop").get().addOnCompleteListener(task -> {
+        db.collection("dishesDown").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 dishesList.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {

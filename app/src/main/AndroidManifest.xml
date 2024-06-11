@@ -27,7 +27,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activitys.Users.Queries.UserResults"
+            android:name=".Activitys.Dishes.Queries.OrderDishesResults"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

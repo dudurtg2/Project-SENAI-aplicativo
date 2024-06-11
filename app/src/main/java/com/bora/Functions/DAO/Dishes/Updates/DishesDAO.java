@@ -26,12 +26,6 @@ public class DishesDAO {
         query.put("nome", dishesDTO.getName());
         query.put("descrisao", dishesDTO.getDescription());
 
-        if (table.equals("dishesDown")) {
-            query.put("local", 0);
-        } else {
-            query.put("local", 1);
-        }
-
         firestore.collection(table).document(uid).set(query).addOnSuccessListener(aVoid -> Toast.makeText(context, "Prato adicionado com sucesso!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(context, "Falha ao adicionar prato: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }
 }

@@ -10,13 +10,13 @@ import com.bora.Activitys.Main.MainActivity;
 import com.bora.Functions.DAO.Dishes.Updates.DishesDAO;
 import com.bora.Functions.DAO.Dishes.Updates.ImageUploaderDAO;
 import com.bora.R;
-import com.bora.databinding.ActivityCreateDishesBinding;
+import com.bora.databinding.ActivityDishesCreateBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class DishesActivity extends AppCompatActivity {
     public static final int PICK_IMAGE_REQUEST = 1;
-    private ActivityCreateDishesBinding binding;
+    private ActivityDishesCreateBinding binding;
     private DatabaseReference mDatabase;
     private String uniqueId;
     private ImageUploaderDAO imageUploader;
@@ -25,8 +25,8 @@ public class DishesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_dishes);
-        binding = ActivityCreateDishesBinding.inflate(getLayoutInflater());
+        setContentView(R.layout.activity_dishes_create);
+        binding = ActivityDishesCreateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.DishesImageUpdate.setImageResource(R.drawable.a);

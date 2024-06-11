@@ -1,8 +1,10 @@
-package com.bora.Functions.DAO.Dishes.Queries.Querys;
+package com.bora.Functions.DAO.Order.Queries;
 
 import android.content.Context;
 import android.widget.Toast;
+
 import com.bora.Functions.DTO.Dishes.DishesDTO;
+import com.bora.Functions.DTO.Users.UserDTO;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
@@ -20,14 +22,13 @@ public class QueryDAO {
     }
 
     public interface FirestoreCallback { void onCallback(List<DishesDTO> dishesList); }
-
     public void readData(final FirestoreCallback firestoreCallback) {
-        db.collection("dishesDown").get().addOnCompleteListener(task -> {
+        db.collection("pedidos").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 dishesList.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    DishesDTO dishesDTO = new DishesDTO(document.getString("nome"), document.getString("uid"));
-                    dishesList.add(dishesDTO);
+                    DishesDTO usuario = new DishesDTO(document.getString("nome_cliente"), document.getString("nome_prato"), document.getString("uid_cliente"), document.getString("uid_prato"), document.getString("data_pedido"));
+                    dishesList.add(usuario);
                 }
                 firestoreCallback.onCallback(dishesList);
             } else {

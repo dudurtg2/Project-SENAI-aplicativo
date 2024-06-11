@@ -1,34 +1,35 @@
-package com.bora.Functions.DAO.User.Queries;
+package com.bora.Functions.DAO.Dishes.Queries.Querys;
 
 import android.content.Context;
 import android.widget.Toast;
-import com.bora.Functions.DTO.Users.UserDTO;
+import com.bora.Functions.DTO.Dishes.DishesDTO;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QueryDAO {
+public class QueryTopDAO {
     private Context context;
     private FirebaseFirestore db;
-    private List<UserDTO> userList;
+    private List<DishesDTO> dishesList;
 
-    public QueryDAO(Context context) {
+    public QueryTopDAO(Context context) {
         this.context = context;
         this.db = FirebaseFirestore.getInstance();
-        this.userList = new ArrayList<>();
+        this.dishesList = new ArrayList<>();
     }
 
-    public interface FirestoreCallback { void onCallback(List<UserDTO> userList); }
+    public interface FirestoreCallback { void onCallback(List<DishesDTO> dishesList); }
+
     public void readData(final FirestoreCallback firestoreCallback) {
-        db.collection("usuarios").get().addOnCompleteListener(task -> {
+        db.collection("dishesTop").get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                userList.clear();
+                dishesList.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    UserDTO usuario = new UserDTO(document.getString("nome"), document.getString("endereco"), document.getString("telefone"), document.getString("uid"));
-                    userList.add(usuario);
+                    DishesDTO dishesDTO = new DishesDTO(document.getString("nome"), document.getString("uid"));
+                    dishesList.add(dishesDTO);
                 }
-                firestoreCallback.onCallback(userList);
+                firestoreCallback.onCallback(dishesList);
             } else {
                 Toast.makeText(context, "Erro ao obter documentos: " + task.getException(), Toast.LENGTH_SHORT).show();
             }
