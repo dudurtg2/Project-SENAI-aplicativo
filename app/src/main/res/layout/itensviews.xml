@@ -4,65 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="0dp"
     android:background="@drawable/item_background"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
     android:padding="16dp"
     >
-
-
-    <TextView
-        android:id="@+id/DishesClientNameOrderShow"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/inknut_antiqua"
-        android:text="[Nome_Cliente]"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DishesImageOrderShow"
-        app:layout_constraintTop_toTopOf="@+id/DishesImageOrderShow" />
-
-    <TextView
-        android:id="@+id/DishesPriceOrderShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/inknut_antiqua"
-        android:text="[Preço]"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/DishesNameOrderShow"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toEndOf="@+id/DishesStatusOrderShow"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/DishesStatusOrderShow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:fontFamily="@font/inknut_antiqua"
-        android:text="[Status]"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@+id/DishesImageOrderShow"
-        app:layout_constraintStart_toStartOf="@+id/DishesImageOrderShow"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
-
-    <TextView
-        android:id="@+id/DishesNameOrderShow"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:fontFamily="@font/inknut_antiqua"
-        android:text="[Nome_Pedido]"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/DishesImageOrderShow"
-        app:layout_constraintTop_toBottomOf="@+id/DishesClientNameOrderShow" />
 
     <ImageView
         android:id="@+id/DishesImageOrderShow"
@@ -74,25 +20,80 @@
         app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
 
+    <TextView
+        android:id="@+id/DishesClientNameOrderShow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/inknut_antiqua"
+        android:text="[Nome_Cliente]"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/DishesImageOrderShow"
+        app:layout_constraintTop_toTopOf="@+id/DishesImageOrderShow"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <TextView
+        android:id="@+id/DishesNameOrderShow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/inknut_antiqua"
+        android:text="[Nome_Pedido]"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/DishesImageOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesClientNameOrderShow"
+        app:layout_constraintHorizontal_bias="0.5" />
+
+    <TextView
+        android:id="@+id/DishesStatusOrderShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inknut_antiqua"
+        android:text="[Status]"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/DishesPriceOrderShow"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/DishesNameOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesNameOrderShow" />
+
+    <TextView
+        android:id="@+id/DishesPriceOrderShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/inknut_antiqua"
+        android:text="[Preço]"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@+id/DishesStatusOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesNameOrderShow" />
+
     <Button
         android:id="@+id/DishesConfirmOrderShow"
-        android:layout_width="110dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="94dp"
-        android:text="Button"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="166dp"
-        tools:visibility="visible" />
+        android:layout_marginTop="16dp"
+        android:text="Confirmar"
+        android:background="@color/verde"
+        app:layout_constraintEnd_toStartOf="@+id/DishesDeleteOrderShow"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/DishesNameOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesPriceOrderShow"
+        tools:visibility="gone" />
 
     <Button
         android:id="@+id/DishesDeleteOrderShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:background="@color/vermelho"
+        android:layout_marginStart="8dp"
+        android:text="Cancelar"
         app:layout_constraintBottom_toBottomOf="@+id/DishesConfirmOrderShow"
         app:layout_constraintStart_toEndOf="@+id/DishesConfirmOrderShow"
-        app:layout_constraintTop_toTopOf="@+id/DishesConfirmOrderShow"
-        tools:visibility="visible" />
-
+        tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -125,28 +125,25 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkIfUserExists(FirebaseUser user) {
-        db.collection("usuarios").document(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()) {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                        overridePendingTransition(R.anim.slide_instante, R.anim.slide_instante);
-                        finish();
-                    } else {
-                        insertUserNoFirestore(user);
-                    }
+        db.collection("usuarios").document(user.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document != null && document.exists()) {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    overridePendingTransition(R.anim.slide_instante, R.anim.slide_instante);
+                    finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show();
+                    insertUserNoFirestore(user);
                 }
+            } else {
+                Toast.makeText(LoginActivity.this, "Erro ao verificar usuário", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void insertUserNoFirestore(FirebaseUser user) {
         UserDAO usuarioDAO = new UserDAO(this);
-        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado");
+        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
 
         startActivity(new Intent(this, MainActivity.class));
         finish();

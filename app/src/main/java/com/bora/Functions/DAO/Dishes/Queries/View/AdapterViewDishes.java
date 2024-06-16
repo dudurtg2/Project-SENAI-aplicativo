@@ -60,7 +60,6 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
                     });
         }
 
-        holder.imageDishesBack.setImageResource(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal_background);
         holder.ButtonEditar.setText(dishesDTO.get(position).getName());
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), DishDetailsActivity.class);

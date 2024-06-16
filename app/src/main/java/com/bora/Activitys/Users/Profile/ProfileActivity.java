@@ -1,6 +1,7 @@
 package com.bora.Activitys.Users.Profile;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -21,6 +22,16 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class ProfileActivity extends AppCompatActivity {
     public static final int PICK_IMAGE_REQUEST = 1;
     public ActivityUserProfileBinding binding;
@@ -30,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageUploaderDAO imageUploader;
     private DocumentReference docRef;
     private String uid;
-    private String profileName, profileCPF, profileAdress, profileNumber, profileBirthDate;
+    private String profileName, profileCPF, profileAdress, profileNumber, profileBirthDate, profileCep;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
         binding.ProfileButtonUpdateProfile.setVisibility(View.GONE);
 
         binding.ProfileButtonUpdateProfile.setOnClickListener(v -> save());
-        EditText[] fields = new EditText[] {binding.ProfileNameShow, binding.ProfileAdressShow, binding.ProfileNumberShow, binding.ProfileBirthDateShow, binding.ProfileCPFShow};
+        EditText[] fields = new EditText[] {binding.ProfileNameShow, binding.ProfileAdressShow, binding.ProfileNumberShow, binding.ProfileBirthDateShow, binding.ProfileCPFShow, binding.ProfileCepShow};
 
         for (EditText field : fields) {
             field.addTextChangedListener(new TextWatcher() {
@@ -65,6 +76,10 @@ public class ProfileActivity extends AppCompatActivity {
                         binding.ProfileButtonUpdateProfile.setVisibility(View.VISIBLE);
                     } else {
                         binding.ProfileButtonUpdateProfile.setVisibility(View.GONE);
+                    }
+                    if (field == binding.ProfileCepShow && s.length() == 8) {
+                        consultationCEP(s.toString(), () -> {
+                        });
                     }
                 }
                 @Override
@@ -121,15 +136,22 @@ public class ProfileActivity extends AppCompatActivity {
                         binding.ProfileCPFShow.setHint("000.000.000-00");
                     }
                 }
+                if (binding.ProfileCepShow.getText().toString().isEmpty()) {
+                    if (document.exists() && document.get("cep") != null) {
+                        binding.ProfileCepShow.setHint(document.getString("cep"));
+                    } else {
+                        binding.ProfileCepShow.setHint("Não informado");
+                    }
+                }
             }
         });
     }
     private void save() {
         binding.ProfileProgressBar.setVisibility(View.VISIBLE);
+
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
-
                 if (binding.ProfileNameShow.getText().toString().isEmpty()) {
                     if (document.exists() && document.get("nome") != null) {
                         binding.ProfileNameShow.setHint(document.getString("nome"));
@@ -152,6 +174,18 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 } else {
                     profileAdress = binding.ProfileAdressShow.getText().toString();
+                }
+
+                if (binding.ProfileCepShow.getText().toString().isEmpty()) {
+                    if (document.exists() && document.get("cep") != null) {
+                        binding.ProfileCepShow.setHint(document.getString("cep"));
+                        profileCep = document.getString("cep");
+                    } else {
+                        binding.ProfileCepShow.setHint("Não informado");
+                        profileCep = "Não informado";
+                    }
+                } else {
+                    profileCep = binding.ProfileCepShow.getText().toString();
                 }
 
                 if (binding.ProfileNumberShow.getText().toString().isEmpty()) {
@@ -188,22 +222,96 @@ public class ProfileActivity extends AppCompatActivity {
                 } else {
                     if (!Verifiers.verifierCPF(binding.ProfileCPFShow.getText().toString())) {
                         Toast.makeText(this, "CPF inválido", Toast.LENGTH_SHORT).show();
+                        binding.ProfileProgressBar.setVisibility(View.GONE);
                         return;
                     } else {
                         profileCPF = binding.ProfileCPFShow.getText().toString();
                     }
                 }
+                new UserDAO(this).userDTO("usuarios", profileName, profileAdress, profileNumber, profileBirthDate, profileCPF, profileCep).addOnSuccessListener(aVoid -> {
 
-                new UserDAO(this).userDTO("usuarios", profileName, profileAdress, profileNumber, profileBirthDate, profileCPF).addOnSuccessListener(aVoid -> {
                     binding.ProfileNameShow.setText("");
                     binding.ProfileAdressShow.setText("");
                     binding.ProfileNumberShow.setText("");
                     binding.ProfileBirthDateShow.setText("");
                     binding.ProfileCPFShow.setText("");
+                    binding.ProfileCepShow.setText("");
+
                     reloadShowInfomations();
+
+                    binding.ProfileProgressBar.setVisibility(View.GONE);
+                }).addOnFailureListener(e -> {
+                    Toast.makeText(this, "Erro ao atualizar perfil: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    binding.ProfileProgressBar.setVisibility(View.GONE);
                 });
             }
         });
-        binding.ProfileProgressBar.setVisibility(View.GONE);
+    }
+
+    private void consultationCEP(String cep, Runnable callback) {
+        String url = "https://viacep.com.br/ws/" + cep + "/json/";
+        new AsyncTask<String, Void, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                HttpURLConnection urlConnection = null;
+                BufferedReader reader = null;
+                String jsonResponse = null;
+                try {
+                    URL requestUrl = new URL(strings[0]);
+                    urlConnection = (HttpURLConnection) requestUrl.openConnection();
+                    urlConnection.setRequestMethod("GET");
+                    urlConnection.connect();
+
+                    InputStream inputStream = urlConnection.getInputStream();
+                    StringBuilder builder = new StringBuilder();
+                    if (inputStream == null) {
+                        return null;
+                    }
+                    reader = new BufferedReader(new InputStreamReader(inputStream));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        builder.append(line).append("\n");
+                    }
+                    if (builder.length() == 0) {
+                        return null;
+                    }
+                    jsonResponse = builder.toString();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (urlConnection != null) {
+                        urlConnection.disconnect();
+                    }
+                    if (reader != null) {
+                        try {
+                            reader.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                return jsonResponse;
+            }
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                if (s != null) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(s);
+                        String logradouro = jsonObject.getString("logradouro");
+                        String bairro = jsonObject.getString("bairro");
+                        String enderecoCompleto = logradouro + ", " + bairro;
+                        binding.ProfileAdressShow.setText(enderecoCompleto);
+                        callback.run();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    Toast.makeText(ProfileActivity.this, "CEP inválido ou não encontrado", Toast.LENGTH_SHORT).show();
+                    binding.ProfileProgressBar.setVisibility(View.GONE);
+                }
+            }
+        }.execute(url);
     }
 }

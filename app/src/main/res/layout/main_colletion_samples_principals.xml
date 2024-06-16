@@ -12,28 +12,28 @@
     android:padding="16dp">
 
     <ImageView
-        android:id="@+id/MainPratosimage"
-        android:layout_width="147dp"
-        android:layout_height="142dp"
+        android:id="@+id/MainPratosPrincipalImage"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/MainPratosName"
+        app:layout_constraintBottom_toTopOf="@+id/MainPratosPrincipalName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/MainPratosName"
+        android:id="@+id/MainPratosPrincipalName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/MainPratosimage"
-        app:layout_constraintStart_toStartOf="@+id/MainPratosimage"
-        app:layout_constraintTop_toBottomOf="@+id/MainPratosimage" />
+        app:layout_constraintEnd_toEndOf="@+id/MainPratosPrincipalImage"
+        app:layout_constraintStart_toStartOf="@+id/MainPratosPrincipalImage"
+        app:layout_constraintTop_toBottomOf="@+id/MainPratosPrincipalImage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

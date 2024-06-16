@@ -11,6 +11,7 @@ public class UserDTO {
     private String cpf;
     private int imagem;
     private String id;
+    private String cep;
 
 
     public UserDTO(String name, String address, String number, String id) {
@@ -20,11 +21,12 @@ public class UserDTO {
         this.id = id;
     }
 
-    public UserDTO(String name, String address, String number, String birthDate, String cpf) {
+    public UserDTO(String name, String address, String number, String birthDate, String cpf, String cep) {
         this.name = name;
         this.address = address;
         this.number = number;
         this.birthDate = birthDate;
         this.cpf = cpf;
+        this.cep = cep;
     }
 }

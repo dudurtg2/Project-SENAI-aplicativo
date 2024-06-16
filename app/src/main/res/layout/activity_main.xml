@@ -15,10 +15,10 @@
             android:id="@+id/MainPrincipalViewPratos2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/MainPrincipalViewPratos0" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/MainPrincipalViewPratos"
@@ -31,6 +31,7 @@
             app:layout_constraintTop_toBottomOf="@id/MainPrincipalViewPratos2" />
 
         <ImageView
+            android:id="@+id/imageView2"
             android:layout_width="411dp"
             android:layout_height="164dp"
             android:background="@drawable/baselayoutdishesdetails" />
@@ -52,7 +53,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
+            android:gravity="center_vertical|left"
             android:background="@color/transparente"
+            android:textColor="@color/white"
             android:drawableStart="@drawable/base_iconuser"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -79,6 +82,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/applogowhite" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/MainPrincipalViewPratos0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

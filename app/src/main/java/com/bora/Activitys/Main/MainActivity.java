@@ -7,19 +7,19 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bora.Activitys.Dishes.DishesActivity;
-import com.bora.Activitys.Users.Profile.ProfileActivity;
 import com.bora.Activitys.Dishes.Queries.OrderDishesResults;
-import com.bora.Functions.DAO.Dishes.Queries.Querys.QueryTopDAO;
+import com.bora.Activitys.Users.Profile.ProfileActivity;
+import com.bora.Functions.DAO.Dishes.Queries.PrincipalView.AdapterViewPrincipalDishes;
 import com.bora.Functions.DAO.Dishes.Queries.Querys.QueryDownDAO;
+import com.bora.Functions.DAO.Dishes.Queries.Querys.QueryPrincipalDAO;
+import com.bora.Functions.DAO.Dishes.Queries.Querys.QueryTopDAO;
 import com.bora.Functions.DAO.Dishes.Queries.View.AdapterViewDishes;
 import com.bora.R;
 import com.bora.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         binding.imageButtonBusca.setOnClickListener(v -> { startActivity(new Intent(this, OrderDishesResults.class)); });
         binding.imageButton.setOnClickListener(v -> { startActivity(new Intent(this, DishesActivity.class)); });
         checkStatus();
-        QueryItems();
+        queryItems();
     }
     private void checkStatus() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                     binding.imageButton.setVisibility(View.GONE);
                 }
                 db.collection("usuarios").document(uid).addSnapshotListener((value, error) -> {
-                    if(value != null){
+                    if (value != null) {
                         binding.imageButtonUsuario.setText(value.getString("nome"));
                     }
                 });
@@ -73,16 +73,23 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void QueryItems() {
-        QueryDownDAO queryDAO = new QueryDownDAO(this);
-        queryDAO.readData(dishesDTO -> {
+    private void queryItems() {
+        QueryDownDAO queryDownDAO = new QueryDownDAO(this);
+        queryDownDAO.readData(dishesDTO -> {
             binding.MainPrincipalViewPratos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             binding.MainPrincipalViewPratos.setAdapter(new AdapterViewDishes(getApplicationContext(), dishesDTO));
         });
+
         QueryTopDAO queryTopDAO = new QueryTopDAO(this);
         queryTopDAO.readData(dishesDTO -> {
             binding.MainPrincipalViewPratos2.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
             binding.MainPrincipalViewPratos2.setAdapter(new AdapterViewDishes(getApplicationContext(), dishesDTO));
+        });
+
+        QueryPrincipalDAO queryPrincipalDAO = new QueryPrincipalDAO(this);
+        queryPrincipalDAO.readData(dishesDTO -> {
+            binding.MainPrincipalViewPratos0.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+            binding.MainPrincipalViewPratos0.setAdapter(new AdapterViewPrincipalDishes(getApplicationContext(), dishesDTO));
         });
     }
 }

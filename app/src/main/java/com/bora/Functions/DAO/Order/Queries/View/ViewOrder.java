@@ -25,8 +25,8 @@ public class ViewOrder extends RecyclerView.ViewHolder {
         DishesImageOrderShow = v.findViewById(R.id.DishesImageOrderShow);
         DishesPriceOrderShow = v.findViewById(R.id.DishesPriceOrderShow);
         DishesStatusOrderShow = v.findViewById(R.id.DishesStatusOrderShow);
-        CancelOrder = v.findViewById(R.id.DishesConfirmOrderShow);
-        ConfirmOrder = v.findViewById(R.id.DishesDeleteOrderShow);
+        ConfirmOrder = v.findViewById(R.id.DishesConfirmOrderShow);
+        CancelOrder = v.findViewById(R.id.DishesDeleteOrderShow);
 
     }
 
