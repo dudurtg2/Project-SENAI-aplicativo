@@ -36,6 +36,7 @@ public class QueryDAO {
                     String uidCliente = document.getString("uid_cliente");
                     if (uidCliente != null && (admin || uidCliente.equals(mAuth.getUid()))) {
                         DishesDTO usuario = new DishesDTO(
+                                document.getId(),
                                 document.getString("nome_cliente"),
                                 document.getString("nome_prato"),
                                 uidCliente,

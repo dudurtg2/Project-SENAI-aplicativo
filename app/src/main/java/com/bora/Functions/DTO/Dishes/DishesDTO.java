@@ -30,7 +30,8 @@ public class DishesDTO {
         this.uid = uid;
     }
 
-    public DishesDTO(String nome_cliente, String nome_prato, String uid_cliente, String uid_prato, String data, String preco, String status){
+    public DishesDTO(String UID, String nome_cliente, String nome_prato, String uid_cliente, String uid_prato, String data, String preco, String status){
+        this.uid = UID;
         this.nome_cliente = nome_cliente;
         this.nome_prato = nome_prato;
         this.uid_cliente = uid_cliente;

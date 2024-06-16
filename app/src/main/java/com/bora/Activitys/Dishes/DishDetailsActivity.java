@@ -88,6 +88,7 @@ public class DishDetailsActivity extends AppCompatActivity {
             query.put("data_pedido", currentDateAndTime);
             query.put("uid_cliente", currentUserUid);
             query.put("uid_prato", uid);
+
             captureDishPrice(uid, query);
         }).addOnFailureListener(e -> Toast.makeText(this, "Erro ao buscar documentos: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         finish();
@@ -110,7 +111,17 @@ public class DishDetailsActivity extends AppCompatActivity {
                                 .addOnSuccessListener(aVoid -> Toast.makeText(this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show())
                                 .addOnFailureListener(e -> Toast.makeText(this, "Falha ao realizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                     } else {
-                        Toast.makeText(this, "Preço do prato não encontrado", Toast.LENGTH_SHORT).show();
+                        db.collection("dishesPrincipal").document(uid).get().addOnSuccessListener(PrincipalSnap -> {
+                            if (PrincipalSnap.exists()) {
+                                query.put("preco", PrincipalSnap.getString("preco"));
+                                query.put("status", "pendente");
+                                firestore.collection("pedidos").document(uniqueId).set(query)
+                                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show())
+                                        .addOnFailureListener(e -> Toast.makeText(this, "Falha ao realizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                            } else {
+                                Toast.makeText(this, "Preço do prato não encontrado", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
                 });
             }
@@ -127,21 +138,37 @@ public class DishDetailsActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {
-                    if (document.get("nome") != null) {
-                        binding.detailsNameShow.setText(document.getString("nome"));
-                    }
-                    if (document.get("descrisao") != null) {
-                        binding.detailsDescriptionShow.setText(document.getString("descrisao"));
-                    }
+                    String nome = document.getString("nome");
+                    String descricao = document.getString("descrisao");
+
+                    binding.detailsNameShow.setText(nome != null ? nome : "");
+                    binding.detailsDescriptionShow.setText(descricao != null ? descricao : "");
+
                     gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + uid + "/dishesDown.png");
-                    gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(binding.detailsImageShow); }).addOnFailureListener(e -> {
+                    gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                        Picasso.get().load(uri).into(binding.detailsImageShow);
+                    }).addOnFailureListener(e -> {
                         gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + uid + "/dishesTop.png");
-                        gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(binding.detailsImageShow); });
+                        gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                            Picasso.get().load(uri).into(binding.detailsImageShow);
+                        }).addOnFailureListener(e2 -> {
+                            gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + uid + "/dishesPrincipal.png");
+                            gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                                Picasso.get().load(uri).into(binding.detailsImageShow);
+                            }).addOnFailureListener(e3 -> {
+                                Toast.makeText(this, "Imagem do prato não encontrada", Toast.LENGTH_SHORT).show();
+                            });
+                        });
                     });
                 } else {
+                    Toast.makeText(this, "Documento do prato não encontrado", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             } else {
+                Toast.makeText(this, "Erro ao buscar dados do prato: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
+
 }

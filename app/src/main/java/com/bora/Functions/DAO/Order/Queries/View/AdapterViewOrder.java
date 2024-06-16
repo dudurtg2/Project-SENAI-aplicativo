@@ -5,8 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.bora.Functions.DTO.Dishes.DishesDTO;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,16 +18,17 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
 import java.util.HashMap;
 import java.util.List;
 
 public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
     private FirebaseAuth mAuth;
-    private FirebaseStorage storage = FirebaseStorage.getInstance();
     private FirebaseFirestore db;
-    Context context;
-    List<DishesDTO> dishesDTO;
-    StorageReference gsReference;
+    private FirebaseStorage storage = FirebaseStorage.getInstance();
+    private Context context;
+    private List<DishesDTO> dishesDTO;
+    private StorageReference gsReference;
 
     public AdapterViewOrder(Context context, List<DishesDTO> dishesDTO) {
         this.context = context;
@@ -88,42 +91,45 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
     }
 
     private void setupAdminButtons(ViewOrder holder, DishesDTO currentDish) {
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        HashMap<String, Object> query = new HashMap<>();
-
         holder.CancelOrder.setOnClickListener(view -> {
-            query.put("status", "cancelado");
-            firestore.collection("pedidos").document(currentDish.getUid_prato()).update(query)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(context, "Pedido cancelado.", Toast.LENGTH_SHORT).show();
-                        currentDish.setStatus("cancelado");
-                        notifyItemChanged(holder.getAdapterPosition());
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(context, "Erro ao cancelar pedido.", Toast.LENGTH_SHORT).show());
+            updateOrderStatus(currentDish.getUid(), "cancelado", holder.getAdapterPosition());
         });
 
         holder.ConfirmOrder.setOnClickListener(view -> {
-            query.put("status", "finalizado");
-            firestore.collection("pedidos").document(currentDish.getUid_prato()).update(query)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(context, "Pedido finalizado.", Toast.LENGTH_SHORT).show();
-                        currentDish.setStatus("finalizado");
-                        notifyItemChanged(holder.getAdapterPosition());
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(context, "Erro ao finalizar pedido.", Toast.LENGTH_SHORT).show());
+            updateOrderStatus(currentDish.getUid(), "finalizado", holder.getAdapterPosition());
         });
     }
 
+    private void updateOrderStatus(String orderId, String status, int position) {
+        db.collection("pedidos").document(orderId)
+                .update("status", status)
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(context, "Pedido " + status + " com sucesso", Toast.LENGTH_SHORT).show();
+                    dishesDTO.get(position).setStatus(status);
+                    notifyItemChanged(position);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(context, "Erro ao atualizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
     private void loadDishImage(DishesDTO currentDish, ViewOrder holder) {
-        gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + currentDish.getUid_prato() + "/dishesDown.png");
+        String uid = currentDish.getUid_prato();
+
+        gsReference = storage.getReference().child("disher/" + uid + "/dishesDown.png");
         gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
             Picasso.get().load(uri).into(holder.DishesImageOrderShow);
         }).addOnFailureListener(e -> {
-            gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + currentDish.getUid_prato() + "/dishesTop.png");
+            gsReference = storage.getReference().child("disher/" + uid + "/dishesTop.png");
             gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                 Picasso.get().load(uri).into(holder.DishesImageOrderShow);
-            }).addOnFailureListener(e1 -> {
-                holder.DishesImageOrderShow.setImageResource(R.drawable.baseimageforuser);
+            }).addOnFailureListener(e2 -> {
+                gsReference = storage.getReference().child("disher/" + uid + "/dishesPrincipal.png");
+                gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                    Picasso.get().load(uri).into(holder.DishesImageOrderShow);
+                }).addOnFailureListener(e1 -> {
+                holder.DishesImageOrderShow.setImageResource(R.drawable.imagemupload);
+                });
             });
         });
     }
