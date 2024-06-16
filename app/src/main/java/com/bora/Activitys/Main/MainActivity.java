@@ -17,7 +17,9 @@ import com.bora.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -34,13 +36,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.imageButtonBusca.setOnClickListener(v -> { startActivity(new Intent(this, ProfileActivity.class)); });
-        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity(new Intent(this, OrderDishesResults.class)); });
+        binding.imageButtonUsuario.setOnClickListener(v -> { startActivity(new Intent(this, ProfileActivity.class)); });
+        binding.imageButtonBusca.setOnClickListener(v -> { startActivity(new Intent(this, OrderDishesResults.class)); });
         binding.imageButton.setOnClickListener(v -> { startActivity(new Intent(this, DishesActivity.class)); });
-        checkAdminStatus();
+        checkStatus();
         QueryItems();
     }
-    private void checkAdminStatus() {
+    private void checkStatus() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             String uid = currentUser.getUid();
@@ -60,6 +62,11 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     binding.imageButton.setVisibility(View.GONE);
                 }
+                db.collection("usuarios").document(uid).addSnapshotListener((value, error) -> {
+                    if(value != null){
+                        binding.imageButtonUsuario.setText(value.getString("nome"));
+                    }
+                });
             });
         } else {
             binding.imageButton.setVisibility(View.GONE);

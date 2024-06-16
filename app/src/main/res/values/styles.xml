@@ -1,13 +1,7 @@
 <!-- res/values/styles.xml -->
 <resources>
-    <!-- Base application theme -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here -->
-        <item name="buttonStyle">@style/CustomButton</item> <!-- Custom button style -->
     </style>
 
-    <style name="CustomButton" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/button_background</item>
-        <item name="android:textColor">#FFFFFF</item>
-    </style>
 </resources>

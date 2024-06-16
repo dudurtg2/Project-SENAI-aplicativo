@@ -2,6 +2,7 @@ package com.bora.Activitys.Dishes;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -32,6 +35,7 @@ public class DishDetailsActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private DatabaseReference mDatabase;
     private String uniqueId;
+    private String prise;
     private StorageReference gsReference;
 
     @Override
@@ -70,15 +74,12 @@ public class DishDetailsActivity extends AppCompatActivity {
 
         Task<DocumentSnapshot> dishTask = firestore.collection(table).document(uid).get();
         Task<DocumentSnapshot> userTask = firestore.collection("usuarios").document(currentUserUid).get();
-
         Tasks.whenAllSuccess(dishTask, userTask).addOnSuccessListener(results -> {
             DocumentSnapshot dishDoc = (DocumentSnapshot) results.get(0);
             DocumentSnapshot userDoc = (DocumentSnapshot) results.get(1);
-
             if (dishDoc.exists() && dishDoc.get("nome") != null) {
                 query.put("nome_prato", dishDoc.getString("nome"));
             }
-
             if (userDoc.exists() && userDoc.get("nome") != null) {
                 query.put("nome_cliente", userDoc.getString("nome"));
             }
@@ -87,13 +88,38 @@ public class DishDetailsActivity extends AppCompatActivity {
             query.put("data_pedido", currentDateAndTime);
             query.put("uid_cliente", currentUserUid);
             query.put("uid_prato", uid);
-            firestore.collection("pedidos").document(uniqueId).set(query)
-                    .addOnSuccessListener(aVoid -> Toast.makeText(this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show())
-                    .addOnFailureListener(e -> Toast.makeText(this, "Falha ao realizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            captureDishPrice(uid, query);
         }).addOnFailureListener(e -> Toast.makeText(this, "Erro ao buscar documentos: " + e.getMessage(), Toast.LENGTH_SHORT).show());
         finish();
     }
-
+    private void captureDishPrice(String uid, HashMap<String, Object> query) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("dishesDown").document(uid).get().addOnSuccessListener(downSnap -> {
+            if (downSnap.exists()) {
+                query.put("preco", downSnap.getString("preco"));
+                query.put("status", "pendente");
+                firestore.collection("pedidos").document(uniqueId).set(query)
+                        .addOnSuccessListener(aVoid -> Toast.makeText(this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(this, "Falha ao realizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+            } else {
+                db.collection("dishesTop").document(uid).get().addOnSuccessListener(topSnap -> {
+                    if (topSnap.exists()) {
+                        query.put("preco", topSnap.getString("preco"));
+                        query.put("status", "pendente");
+                        firestore.collection("pedidos").document(uniqueId).set(query)
+                                .addOnSuccessListener(aVoid -> Toast.makeText(this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show())
+                                .addOnFailureListener(e -> Toast.makeText(this, "Falha ao realizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                    } else {
+                        Toast.makeText(this, "Preço do prato não encontrado", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(e -> {
+            Toast.makeText(this, "Erro ao buscar preço do prato: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }).addOnCompleteListener(task -> {
+            finish();
+        });
+    }
 
     private void selectDish(String uid, String table) {
         docRef = firestore.collection(table).document(uid);

@@ -1,16 +1,14 @@
 package com.bora.Functions.DAO.Order.Queries.View;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bora.Activitys.Dishes.DishDetailsActivity;
 import com.bora.Functions.DTO.Dishes.DishesDTO;
-import com.bora.Functions.DTO.Users.UserDTO;
 import com.bora.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -47,9 +45,17 @@ class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
         db = FirebaseFirestore.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        holder.DishesClientNameOrderShow.setText(dishesDTO.get(position).getNome_cliente());
+        holder.DishesClientNameOrderShow.setText("Cliente: " + dishesDTO.get(position).getNome_cliente());
         holder.DishesNameOrderShow.setText(dishesDTO.get(position).getNome_prato());
-        holder.imageViewEditar.setImageResource(com.google.android.gms.base.R.drawable.common_google_signin_btn_text_light_normal_background);
+        holder.DishesPriceOrderShow.setText("Preço: R$" + dishesDTO.get(position).getPreco());
+        holder.DishesStatusOrderShow.setText(dishesDTO.get(position).getStatus());
+        if (currentUser != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("usuarios").document(mAuth.getCurrentUser().getUid()).addSnapshotListener((value, error) -> {
+                holder.ConfirmOrder.setVisibility(View.VISIBLE);
+                holder.CancelOrder.setVisibility(View.VISIBLE);
+            });
+        }
 
         if (currentUser != null) {
             gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid_prato() + "/dishesDown.png");
@@ -59,7 +65,7 @@ class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
                 gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid_prato() + "/dishesTop.png");
                 gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
                     Picasso.get().load(uri).into(holder.DishesImageOrderShow);
-                }).addOnFailureListener(e1 -> holder.DishesImageOrderShow.setImageResource(R.drawable.a));
+                }).addOnFailureListener(e1 -> holder.DishesImageOrderShow.setImageResource(R.drawable.baseimageforuser));
             });
         }
         holder.itemView.setOnClickListener(view -> {

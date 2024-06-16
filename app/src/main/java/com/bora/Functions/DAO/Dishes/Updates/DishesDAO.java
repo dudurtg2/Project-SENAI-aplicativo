@@ -16,7 +16,7 @@ public class DishesDAO {
         this.mAuth = FirebaseAuth.getInstance();
     }
 
-    public void addDishToFirestore(String name, String description, String uid, String table) {
+    public void addDishToFirestore(String name, String description, String uid, String preco, String table) {
         DishesDTO dishesDTO = new DishesDTO(name, description, uid);
 
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
@@ -25,6 +25,7 @@ public class DishesDAO {
         query.put("uid", dishesDTO.getUid());
         query.put("nome", dishesDTO.getName());
         query.put("descrisao", dishesDTO.getDescription());
+        query.put("preco", preco);
 
         firestore.collection(table).document(uid).set(query).addOnSuccessListener(aVoid -> Toast.makeText(context, "Prato adicionado com sucesso!", Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(context, "Falha ao adicionar prato: " + e.getMessage(), Toast.LENGTH_SHORT).show());
     }

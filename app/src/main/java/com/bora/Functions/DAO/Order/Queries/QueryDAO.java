@@ -43,7 +43,7 @@ class QueryDAO {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String uidCliente = document.getString("uid_cliente");
                     if (admin || uidCliente.equals(mAuth.getUid())) {
-                        DishesDTO usuario = new DishesDTO(document.getString("nome_cliente"), document.getString("nome_prato"), uidCliente, document.getString("uid_prato"), document.getString("data_pedido"));
+                        DishesDTO usuario = new DishesDTO(document.getString("nome_cliente"), document.getString("nome_prato"), uidCliente, document.getString("uid_prato"), document.getString("data_pedido"), document.getString("preco"), document.getString("status"));
                         dishesList.add(usuario);
                     }
                 }

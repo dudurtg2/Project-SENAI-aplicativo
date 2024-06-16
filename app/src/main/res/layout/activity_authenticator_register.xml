@@ -6,89 +6,100 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Activitys.Authentication.Login.LoginActivity">
+    tools:context=".Activitys.Authentication.Login.LoginActivity"
+    tools:layout_editor_absoluteX="2dp"
+    tools:layout_editor_absoluteY="79dp">
 
 
     <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="411dp"
+        android:layout_height="164dp"
+        android:background="@drawable/baselayoutdishesdetails" />
+
+    <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="219dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="164dp"
         app:layout_constraintBottom_toTopOf="@+id/EditUsuario"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <EditText
-        android:id="@+id/EditEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="612dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:textColorHint="#000000"
-        android:hint="E-mail"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/applogo" />
 
     <EditText
         android:id="@+id/EditUsuario"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/button_base"
         android:ems="10"
         android:hint="Usuario"
         android:inputType="textEmailAddress"
-        android:textColorHint="#000000"
+        android:paddingLeft="15dp"
         app:layout_constraintBottom_toTopOf="@+id/EditEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/EditSenha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/EditEmail"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="404dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/button_base"
         android:ems="10"
-        android:textColorHint="#000000"
-        android:hint="Senha"
-        android:inputType="textPassword"
+        android:hint="E-mail"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="15dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditEmail" />
-
-    <TextView
-        android:id="@+id/ClickLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Fazer login"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/btnCadastrar"
-        app:layout_constraintTop_toBottomOf="@+id/btnCadastrar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/ClickRecuperacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:text="Esqueceu a senha?"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="@+id/btnCadastrar"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="@+id/btnCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+    <Button
+        android:id="@+id/btnCadastrar"
+        android:layout_width="319dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+
+        android:background="@drawable/button_stroke_normal"
+        android:text="CRIAR CONTA"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditSenha" />
+
+    <Button
+        android:id="@+id/ClickLogin"
+        android:layout_width="319dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/button_stroke"
+        android:text="Fazer login"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnCadastrar" />
 
     <ProgressBar
@@ -99,24 +110,27 @@
         android:layout_marginTop="8dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/btnCadastrar"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="@+id/btnCadastrar"
-        app:layout_constraintTop_toBottomOf="@+id/btnCadastrar"
+        app:layout_constraintTop_toBottomOf="@+id/ClickLogin"
         tools:visibility="visible" />
 
-    <Button
-        android:id="@+id/btnCadastrar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+    <EditText
+        android:id="@+id/EditSenha"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="32dp"
-        android:text="CRIAR CONTA"
-        android:textColor="#000000"
+        android:background="@drawable/button_base"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EditSenha" />
-
+        app:layout_constraintTop_toBottomOf="@+id/EditEmail" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

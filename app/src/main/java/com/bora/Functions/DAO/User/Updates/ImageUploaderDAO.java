@@ -73,7 +73,7 @@ public class ImageUploaderDAO {
     public void loadImagem() {
         if (currentUser != null) {
             StorageReference gsReference = storageReference.child("profile_images").child("profile.png");
-            gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(((ProfileActivity) context).binding.imageButtonPerfil); }).addOnFailureListener(exception -> { ((ProfileActivity) context).binding.imageButtonPerfil.setImageResource(R.drawable.a); });
+            gsReference.getDownloadUrl().addOnSuccessListener(uri -> { Picasso.get().load(uri).into(((ProfileActivity) context).binding.imageButtonPerfil); }).addOnFailureListener(exception -> { ((ProfileActivity) context).binding.imageButtonPerfil.setImageResource(R.drawable.baseimageforuser); });
         }
     }
 

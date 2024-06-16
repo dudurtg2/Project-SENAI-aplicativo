@@ -9,60 +9,69 @@
     tools:context=".Activitys.Authentication.Login.LoginActivity">
 
 
+    <ImageView
+        android:layout_width="411dp"
+        android:layout_height="164dp"
+        android:background="@drawable/baselayoutdishesdetails"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
     <EditText
         android:id="@+id/EditEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="492dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/button_base"
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
+        android:paddingLeft="15dp"
         android:textColor="#000000"
-        android:textColorHint="#000000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/EditSenha"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_width="319dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/button_base"
         android:ems="10"
         android:hint="Senha"
-        android:textColorHint="#000000"
         android:inputType="textPassword"
+        android:paddingLeft="15dp"
         android:textColor="#000000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditEmail" />
 
-    <TextView
+    <Button
         android:id="@+id/ClickCadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Criar conta"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        android:layout_width="319dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="46dp"
+        android:background="@drawable/button_stroke"
+        android:text="Cadastrar"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:strokeColor="#FF8A00"
+        app:strokeWidth="2dp" />
 
     <TextView
         android:id="@+id/ClickRecuperacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="1dp"
+        android:layout_marginTop="64dp"
         android:text="Esqueceu a senha?"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ClickCadastro" />
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -73,56 +82,49 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@+id/btnLogin"
         app:layout_constraintStart_toStartOf="@+id/btnLogin"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin"
+        app:layout_constraintTop_toBottomOf="@+id/ClickCadastro"
         tools:visibility="visible" />
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/button_background"
+        android:layout_width="319dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/laranja"
+        android:background="@drawable/button_stroke_normal"
         android:selectAllOnFocus="false"
         android:text="LOGIN"
         android:textColor="#000000"
         android:textColorLink="#FF9800"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/EditSenha" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="219dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="164dp"
         app:layout_constraintBottom_toTopOf="@+id/EditEmail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
+        app:srcCompat="@drawable/applogo" />
+
 
     <Button
         android:id="@+id/Google"
-        android:layout_width="0dp"
+        android:layout_width="219dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="740dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_background"
         android:text="LOGIN COM GOOGLE"
         android:textStyle="bold"
-        android:background="@drawable/button_background"
-        app:icon="@drawable/googleg_standard_color_18"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ClickRecuperacao"
         app:rippleColor="#55FFEA"
         app:strokeColor="#29DFFF" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

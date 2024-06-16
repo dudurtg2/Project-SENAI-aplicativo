@@ -5,37 +5,57 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.Dishes.DishDetailsActivity">
+    tools:context=".Activitys.Dishes.DishDetailsActivity"
+    android:background="@drawable/background">
+
 
     <ImageView
         android:id="@+id/detailsImageShow"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/detailsNameShow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/imagemupload"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="328dp"
+        android:background="@drawable/basefundedishes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/a" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detailsNameShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:text="TextView"
+        android:layout_marginTop="360dp"
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/inknut_antiqua"
+        android:text="[Nome]"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/detailsDescriptionShow"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.118"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailsImageShow" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/detailsDescriptionShow"
-        android:layout_width="0dp"
+        android:layout_width="319dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="16dp"
+        android:layout_marginRight="22dp"
+        android:layout_marginLeft="22dp"
         android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/detailsButtonResgister"
         app:layout_constraintEnd_toEndOf="parent"
@@ -45,11 +65,14 @@
     <Button
         android:id="@+id/detailsButtonResgister"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="25dp"
-        android:text="pedir"
+        android:layout_height="60dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginEnd="88dp"
+        android:layout_marginBottom="45dp"
+        android:drawableEnd="@drawable/base_image_cart"
+        android:fontFamily="@font/inknut_antiqua"
+        android:paddingRight="20dp"
+        android:text="Adicionar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -29,7 +29,7 @@ public class DishesActivity extends AppCompatActivity {
         binding = ActivityDishesCreateBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.DishesImageUpdate.setImageResource(R.drawable.a);
+        binding.DishesImageUpdate.setImageResource(R.drawable.baseimageforuser);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         uniqueId = mDatabase.push().getKey();
         imageUploader = new ImageUploaderDAO(this, uniqueId);
@@ -57,9 +57,10 @@ public class DishesActivity extends AppCompatActivity {
         String description = binding.DishesDescriptionUpdate.getText().toString();
         String uid = uniqueId;
         String table = binding.DishesOptionsSpinner.getSelectedItem().toString();
+        String preco = binding.DishesPriseUpdate.getText().toString();
 
         DishesDAO dishesDAO = new DishesDAO(this);
-        dishesDAO.addDishToFirestore(name, description, uid, table);
+        dishesDAO.addDishToFirestore(name, description, uid, preco, table);
 
         imageUploader.uploadImage(table);
         finish();

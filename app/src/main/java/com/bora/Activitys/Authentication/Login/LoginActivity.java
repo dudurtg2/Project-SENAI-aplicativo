@@ -40,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_authenticator_login);
         binding = ActivityAuthenticatorLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         binding.ClickCadastro.setOnClickListener(v -> {
             startActivity(new Intent(this, RegisterActivity.class));
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
