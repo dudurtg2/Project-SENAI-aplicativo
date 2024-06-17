@@ -37,9 +37,7 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
 
     @NonNull
     @Override
-    public ViewOrder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewOrder(LayoutInflater.from(context).inflate(R.layout.itensviews, parent, false));
-    }
+    public ViewOrder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) { return new ViewOrder(LayoutInflater.from(context).inflate(R.layout.itensviews, parent, false)); }
 
     @Override
     public void onBindViewHolder(@NonNull ViewOrder holder, int position) {
@@ -85,32 +83,22 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
 
         loadDishImage(currentDish, holder);
 
-        holder.itemView.setOnClickListener(view -> {
-            Toast.makeText(context, "Pedido realizado às " + currentDish.getData(), Toast.LENGTH_SHORT).show();
-        });
+        holder.itemView.setOnClickListener(view -> {Toast.makeText(context, "Pedido realizado às " + currentDish.getData(), Toast.LENGTH_SHORT).show();});
     }
 
     private void setupAdminButtons(ViewOrder holder, DishesDTO currentDish) {
-        holder.CancelOrder.setOnClickListener(view -> {
-            updateOrderStatus(currentDish.getUid(), "cancelado", holder.getAdapterPosition());
-        });
-
-        holder.ConfirmOrder.setOnClickListener(view -> {
-            updateOrderStatus(currentDish.getUid(), "finalizado", holder.getAdapterPosition());
-        });
+        holder.CancelOrder.setOnClickListener(view -> { updateOrderStatus(currentDish.getUid(), "cancelado", holder.getAdapterPosition());});
+        holder.ConfirmOrder.setOnClickListener(view -> { updateOrderStatus(currentDish.getUid(), "finalizado", holder.getAdapterPosition());});
     }
 
     private void updateOrderStatus(String orderId, String status, int position) {
-        db.collection("pedidos").document(orderId)
-                .update("status", status)
-                .addOnSuccessListener(aVoid -> {
+        db.collection("pedidos").document(orderId).update("status", status).addOnSuccessListener(aVoid -> {
                     Toast.makeText(context, "Pedido " + status + " com sucesso", Toast.LENGTH_SHORT).show();
                     dishesDTO.get(position).setStatus(status);
                     notifyItemChanged(position);
-                })
-                .addOnFailureListener(e -> {
-                    Toast.makeText(context, "Erro ao atualizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+            }).addOnFailureListener(e -> {
+                Toast.makeText(context, "Erro ao atualizar pedido: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            });
     }
 
     private void loadDishImage(DishesDTO currentDish, ViewOrder holder) {
@@ -135,7 +123,5 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
     }
 
     @Override
-    public int getItemCount() {
-        return dishesDTO.size();
-    }
+    public int getItemCount() { return dishesDTO.size(); }
 }
