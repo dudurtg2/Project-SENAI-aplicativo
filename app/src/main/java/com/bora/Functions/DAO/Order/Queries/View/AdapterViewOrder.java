@@ -49,7 +49,7 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
 
         holder.DishesClientNameOrderShow.setText("Cliente: " + currentDish.getNome_cliente());
         holder.DishesNameOrderShow.setText(currentDish.getNome_prato());
-        holder.DishesPriceOrderShow.setText("Preço: R$" + currentDish.getPreco());
+        holder.DishesPriceOrderShow.setText("Preço: R$" + currentDish.getPrice());
         holder.DishesStatusOrderShow.setText(currentDish.getStatus());
 
         if (currentUser != null) {

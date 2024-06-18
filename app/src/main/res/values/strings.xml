@@ -15,5 +15,10 @@
         <item>dishesTop</item>
         <item>dishesPrincipal</item>
     </string-array>
+    <string-array name="dishes_category">
+        <item>vegano</item>
+        <item>bebidas</item>
+        <item>pasteis</item>
+    </string-array>
 
 </resources>

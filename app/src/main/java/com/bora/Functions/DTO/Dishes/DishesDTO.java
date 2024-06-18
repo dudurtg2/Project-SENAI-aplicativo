@@ -17,27 +17,30 @@ public class DishesDTO {
     private String uid_prato;
     private String uid_cliente;
     private String data;
-    private String preco;
+    private String price;
     private String status;
+    private String table;
 
-    public DishesDTO(String name, String description, String uid){
+    public DishesDTO(String name, String description, String uid, String table){
         this.name = name;
         this.description = description;
         this.uid = uid;
+        this.table = table;
     }
-    public DishesDTO(String name, String uid){
+    public DishesDTO(String name, String uid, String price){
         this.name = name;
         this.uid = uid;
+        this.price = price;
     }
 
-    public DishesDTO(String UID, String nome_cliente, String nome_prato, String uid_cliente, String uid_prato, String data, String preco, String status){
+    public DishesDTO(String UID, String nome_cliente, String nome_prato, String uid_cliente, String uid_prato, String data, String price, String status){
         this.uid = UID;
         this.nome_cliente = nome_cliente;
         this.nome_prato = nome_prato;
         this.uid_cliente = uid_cliente;
         this.uid_prato = uid_prato;
         this.data = data;
-        this.preco = preco;
+        this.price = price;
         this.status = status;
     }
 }

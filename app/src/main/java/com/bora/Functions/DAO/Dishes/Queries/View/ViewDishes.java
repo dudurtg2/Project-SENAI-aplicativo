@@ -11,11 +11,13 @@ import com.bora.R;
 
 public class ViewDishes extends RecyclerView.ViewHolder{
     protected ImageView imageViewDishes;
-    protected TextView ButtonEditar;;
+    protected TextView MainPratosName;
+    protected TextView MainPriceName;
 
     public ViewDishes(View v) {
         super(v);
         imageViewDishes = (ImageView) v.findViewById(R.id.MainPratosimage);
-        ButtonEditar = (TextView) v.findViewById(R.id.MainPratosName);
+        MainPratosName = (TextView) v.findViewById(R.id.MainPratosName);
+        MainPriceName = (TextView) v.findViewById(R.id.MainPriceName);
     }
 }

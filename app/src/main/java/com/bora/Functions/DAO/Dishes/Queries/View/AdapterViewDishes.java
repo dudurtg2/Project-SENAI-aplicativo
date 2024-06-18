@@ -57,10 +57,16 @@ public class AdapterViewDishes extends RecyclerView.Adapter<ViewDishes> {
                             Picasso.get().load(uri).into(holder.imageViewDishes);
                             table = "dishesTop";
                         });
+                    }).addOnFailureListener(e -> {
+                        gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + dishesDTO.get(position).getUid() + "/dishesPrincipal.png");
+                        gsReference.getDownloadUrl().addOnSuccessListener(uri -> {
+                            Picasso.get().load(uri).into(holder.imageViewDishes);
+                            table = "dishesPrincipal";
+                        });
                     });
         }
-
-        holder.ButtonEditar.setText(dishesDTO.get(position).getName());
+        holder.MainPriceName.setText("R$ " + dishesDTO.get(position).getPrice());
+        holder.MainPratosName.setText(dishesDTO.get(position).getName());
         holder.itemView.setOnClickListener(view -> {
             Intent intent = new Intent(view.getContext(), DishDetailsActivity.class);
             intent.putExtra("uid", dishesDTO.get(position).getUid());

@@ -48,7 +48,9 @@ public class OrderDishesResults extends AppCompatActivity {
                     }
                     QueryDAO orderDishesDAO = new QueryDAO(this, mAuth, admin);
                     orderDishesDAO.readData(orderDishesList -> {
-                        binding.OrderTableResultDishesShow.setLayoutManager(new LinearLayoutManager(this));
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+                        layoutManager.setStackFromEnd(true);
+                        binding.OrderTableResultDishesShow.setLayoutManager(layoutManager);
                         binding.OrderTableResultDishesShow.setAdapter(new AdapterViewOrder(getApplicationContext(), orderDishesList));
                     });
                 }

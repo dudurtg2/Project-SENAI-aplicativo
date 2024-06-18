@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Activitys.Authentication.Login.LoginActivity;
+import com.bora.Activitys.Users.Authentication.LoginActivity;
 import com.bora.R;
 
 public class SplashActivity extends AppCompatActivity {

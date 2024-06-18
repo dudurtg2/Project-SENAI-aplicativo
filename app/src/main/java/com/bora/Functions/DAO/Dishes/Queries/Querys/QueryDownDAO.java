@@ -26,7 +26,7 @@ public class QueryDownDAO {
             if (task.isSuccessful()) {
                 dishesList.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {
-                    DishesDTO dishesDTO = new DishesDTO(document.getString("nome"), document.getString("uid"));
+                DishesDTO dishesDTO = new DishesDTO(document.getString("nome"), document.getString("uid"), document.getString("preco"));
                     dishesList.add(dishesDTO);
                 }
                 firestoreCallback.onCallback(dishesList);

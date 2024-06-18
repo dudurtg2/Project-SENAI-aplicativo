@@ -4,55 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
-    android:background="@drawable/item_background"
-    android:padding="8dp"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="0dp">
+    android:background="@drawable/item_background"
+    tools:layout_editor_absoluteY="0dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:padding="16dp">
 
     <ImageView
         android:id="@+id/MainPratosimage"
-        android:layout_width="158dp"
-        android:layout_height="143dp"
+        android:layout_width="147dp"
+        android:layout_height="142dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/MainPratosName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/MainPratosName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="{nome}"
-        android:textColor="#000000"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:text="Button"
         app:layout_constraintEnd_toEndOf="@+id/MainPratosimage"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/MainPratosimage"
         app:layout_constraintTop_toBottomOf="@+id/MainPratosimage" />
-
-    <TextView
-        android:id="@+id/MainPriceName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:text="{preco}"
-        android:textColor="#000000"
-
-        app:layout_constraintEnd_toEndOf="@+id/MainPratosName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/MainPratosName"
-        app:layout_constraintTop_toBottomOf="@+id/MainPratosName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

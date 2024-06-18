@@ -1,4 +1,4 @@
-package com.bora.Activitys.Authentication.Register;
+package com.bora.Activitys.Users.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import com.bora.Activitys.Authentication.Login.LoginActivity;
-import com.bora.Activitys.Authentication.RecoverPasswordActivity;
+
 import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.R;
 import com.bora.databinding.ActivityAuthenticatorRegisterBinding;

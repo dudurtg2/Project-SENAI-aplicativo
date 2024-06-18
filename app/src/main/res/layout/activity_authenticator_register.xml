@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Activitys.Authentication.Login.LoginActivity"
+    tools:context=".Activitys.Users.Authentication.LoginActivity"
     tools:layout_editor_absoluteX="2dp"
     tools:layout_editor_absoluteY="79dp">
 

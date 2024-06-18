@@ -31,15 +31,15 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activitys.Authentication.RecoverPasswordActivity"
+            android:name=".Activitys.Users.Authentication.RecoverPasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activitys.Authentication.Register.RegisterActivity"
+            android:name=".Activitys.Users.Authentication.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activitys.Authentication.Login.LoginActivity"
+            android:name=".Activitys.Users.Authentication.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
