@@ -140,9 +140,11 @@ public class DishDetailsActivity extends AppCompatActivity {
                 if (document.exists()) {
                     String nome = document.getString("nome");
                     String descricao = document.getString("descrisao");
+                    String prise = document.getString("preco");
 
                     binding.detailsNameShow.setText(nome != null ? nome : "");
                     binding.detailsDescriptionShow.setText(descricao != null ? descricao : "");
+                    binding.detailsButtonResgister.setText(prise != null ? "Adicionar  R$ " + prise : "");
 
                     gsReference = storage.getReferenceFromUrl("gs://dbdavalonstudios.appspot.com/disher/" + uid + "/dishesDown.png");
                     gsReference.getDownloadUrl().addOnSuccessListener(uri -> {

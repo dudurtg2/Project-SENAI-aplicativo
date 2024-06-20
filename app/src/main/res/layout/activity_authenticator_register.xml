@@ -15,7 +15,8 @@
         android:id="@+id/imageView3"
         android:layout_width="411dp"
         android:layout_height="164dp"
-        android:background="@drawable/baselayoutdishesdetails" />
+        android:background="@drawable/baselayoutdishesdetails"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"

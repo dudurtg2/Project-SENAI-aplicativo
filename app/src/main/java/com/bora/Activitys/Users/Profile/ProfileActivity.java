@@ -1,5 +1,6 @@
 package com.bora.Activitys.Users.Profile;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bora.Activitys.Users.Authentication.LoginActivity;
 import com.bora.Functions.DAO.User.Updates.ImageUploaderDAO;
 import com.bora.Functions.DAO.User.Updates.UserDAO;
 import com.bora.Functions.Verifiers;
@@ -31,6 +34,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 public class ProfileActivity extends AppCompatActivity {
     public static final int PICK_IMAGE_REQUEST = 1;
@@ -66,6 +70,13 @@ public class ProfileActivity extends AppCompatActivity {
         binding.ProfileButtonUpdateProfile.setOnClickListener(v -> save());
         EditText[] fields = new EditText[] {binding.ProfileNameShow, binding.ProfileAdressShow, binding.ProfileNumberShow, binding.ProfileBirthDateShow, binding.ProfileCPFShow, binding.ProfileCepShow};
 
+        binding.ProfileBirthDateShow.setOnClickListener(v -> showDatePickerDialog());
+
+        binding.buttonLogout.setOnClickListener(v -> {
+            mAuth.signOut();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        });
         for (EditText field : fields) {
             field.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -91,7 +102,21 @@ public class ProfileActivity extends AppCompatActivity {
 
         imageUploader.loadImagem();
     }
+    private void showDatePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
 
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                ProfileActivity.this,
+                (view, year1, monthOfYear, dayOfMonth) -> {
+                    String selectedDate = String.format("%02d/%02d/%04d", dayOfMonth, (monthOfYear + 1), year1);
+                    binding.ProfileBirthDateShow.setText(selectedDate);
+                },
+                year, month, day);
+        datePickerDialog.show();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -112,14 +137,14 @@ public class ProfileActivity extends AppCompatActivity {
                     if (document.exists() && document.get("endereco") != null) {
                         binding.ProfileAdressShow.setHint(document.getString("endereco"));
                     } else {
-                        binding.ProfileAdressShow.setHint("Não informado");
+                        binding.ProfileAdressShow.setHint("Endereco não informado");
                     }
                 }
                 if (binding.ProfileNumberShow.getText().toString().isEmpty()) {
                     if (document.exists() && document.get("telefone") != null) {
                         binding.ProfileNumberShow.setHint(document.getString("telefone"));
                     } else {
-                        binding.ProfileNumberShow.setHint("Não informado");
+                        binding.ProfileNumberShow.setHint("Sem Telefone");
                     }
                 }
                 if (binding.ProfileBirthDateShow.getText().toString().isEmpty()) {
@@ -140,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
                     if (document.exists() && document.get("cep") != null) {
                         binding.ProfileCepShow.setHint(document.getString("cep"));
                     } else {
-                        binding.ProfileCepShow.setHint("Não informado");
+                        binding.ProfileCepShow.setHint("00000-000");
                     }
                 }
             }

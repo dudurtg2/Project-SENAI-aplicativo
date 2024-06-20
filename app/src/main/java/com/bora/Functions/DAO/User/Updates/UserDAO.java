@@ -34,8 +34,6 @@ public class UserDAO {
 
     public Task<Void> writeNewUser(String table, UserDTO userDTO) {
         FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = database.getReference(table);
         mAuth = FirebaseAuth.getInstance();
         String uid = mAuth.getCurrentUser().getUid();
 
@@ -51,8 +49,8 @@ public class UserDAO {
                             String lastDataString = String.valueOf(document.get("data"));
                             int lastData = Integer.parseInt(lastDataString);
 
-                            if (currentMinutesOfYear < lastData + 60) {
-                                Toast.makeText(context, "Ainda falta " + (60 - (currentMinutesOfYear - lastData)) + " minutos para a próxima gravação", Toast.LENGTH_SHORT).show();
+                            if (currentMinutesOfYear < lastData + 10) {
+                                Toast.makeText(context, "Ainda falta " + (10 - (currentMinutesOfYear - lastData)) + " minutos para a próxima gravação", Toast.LENGTH_SHORT).show();
                                 return null;
                             }
                         }
@@ -68,9 +66,7 @@ public class UserDAO {
                         query.put("data", currentMinutesOfYear);
                         query.put("cep", userDTO.getCep());
 
-                        databaseReference.child(uid).setValue(query);
-
-                        return firestore.collection("usuarios").document(uid).set(query);
+                        return firestore.collection(table).document(uid).set(query);
                     }
                     return null;
                 })

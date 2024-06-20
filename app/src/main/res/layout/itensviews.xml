@@ -7,6 +7,7 @@
     android:background="@drawable/item_background"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
+    android:layout_marginTop="12dp"
     android:padding="16dp"
     >
 
@@ -76,24 +77,25 @@
         android:id="@+id/DishesConfirmOrderShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Confirmar"
+        android:layout_marginTop="8dp"
         android:background="@color/verde"
+        android:text="Confirmar"
         app:layout_constraintEnd_toStartOf="@+id/DishesDeleteOrderShow"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/DishesNameOrderShow"
-        app:layout_constraintTop_toBottomOf="@+id/DishesPriceOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesStatusOrderShow"
         tools:visibility="gone" />
 
     <Button
         android:id="@+id/DishesDeleteOrderShow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/vermelho"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/vermelho"
         android:text="Cancelar"
-        app:layout_constraintBottom_toBottomOf="@+id/DishesConfirmOrderShow"
         app:layout_constraintStart_toEndOf="@+id/DishesConfirmOrderShow"
+        app:layout_constraintTop_toBottomOf="@+id/DishesStatusOrderShow"
         tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class QueryDAO {
     private Context context;
@@ -34,7 +35,8 @@ public class QueryDAO {
                 dishesList.clear();
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String uidCliente = document.getString("uid_cliente");
-                    if (uidCliente != null && (admin || uidCliente.equals(mAuth.getUid()))) {
+                    String status = document.getString("status");
+                    if (uidCliente != null && uidCliente.equals(mAuth.getUid())) {
                         DishesDTO usuario = new DishesDTO(
                                 document.getId(),
                                 document.getString("nome_cliente"),
@@ -46,6 +48,21 @@ public class QueryDAO {
                                 document.getString("status")
                         );
                         dishesList.add(usuario);
+                    }
+                    if (admin) {
+                        if (Objects.equals(status, "pendente")) {
+                            DishesDTO usuario = new DishesDTO(
+                                    document.getId(),
+                                    document.getString("nome_cliente"),
+                                    document.getString("nome_prato"),
+                                    uidCliente,
+                                    document.getString("uid_prato"),
+                                    document.getString("data_pedido"),
+                                    document.getString("preco"),
+                                    document.getString("status")
+                            );
+                            dishesList.add(usuario);
+                        }
                     }
                 }
                 firestoreCallback.onCallback(dishesList);

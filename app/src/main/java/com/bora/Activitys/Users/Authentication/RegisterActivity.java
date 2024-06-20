@@ -57,7 +57,8 @@ public class RegisterActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 finish();
                 Toast.makeText(this, "Cadastro realizado com sucesso", Toast.LENGTH_SHORT).show();
-                userDAO.userDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(), "Não informado", "Não informado", "Não informado", "Não informado","Não informado");
+                userDAO.userDTO("usuarios", binding.EditUsuario.getText().toString().isEmpty() ? "" : binding.EditUsuario.getText().toString(),  "Endereco não informado", "Sem Telefone", "01/01/2000", "000.000.000-00", "00000-000");
+
                 startActivity(new Intent(this, LoginActivity.class));
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             } else {

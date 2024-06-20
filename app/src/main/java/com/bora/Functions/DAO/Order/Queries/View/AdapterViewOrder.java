@@ -55,25 +55,10 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
         if (currentUser != null) {
             String uid = currentUser.getUid();
             db.collection("usuarios").document(uid).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document != null && document.exists()) {
-                        Boolean isAdmin = document.getBoolean("admin");
-                        if (isAdmin != null && isAdmin) {
-                            holder.CancelOrder.setVisibility(View.VISIBLE);
-                            holder.ConfirmOrder.setVisibility(View.VISIBLE);
-                            setupAdminButtons(holder, currentDish);
-                        } else {
-                            holder.CancelOrder.setVisibility(View.GONE);
-                            holder.ConfirmOrder.setVisibility(View.GONE);
-                        }
-                    } else {
-                        holder.CancelOrder.setVisibility(View.GONE);
-                        holder.ConfirmOrder.setVisibility(View.GONE);
-                    }
+                if (task.isSuccessful() && task.getResult() != null && task.getResult().exists()) {
+                    handleUserDocument(task.getResult(), holder, currentDish);
                 } else {
-                    holder.CancelOrder.setVisibility(View.GONE);
-                    holder.ConfirmOrder.setVisibility(View.GONE);
+                    fetchOrderStatusAndSetVisibility(holder, currentDish);
                 }
             });
         } else {
@@ -83,7 +68,36 @@ public class AdapterViewOrder extends RecyclerView.Adapter<ViewOrder> {
 
         loadDishImage(currentDish, holder);
 
-        holder.itemView.setOnClickListener(view -> {Toast.makeText(context, "Pedido realizado às " + currentDish.getData(), Toast.LENGTH_SHORT).show();});
+        holder.itemView.setOnClickListener(view -> {
+            Toast.makeText(context, "Pedido realizado às " + currentDish.getData(), Toast.LENGTH_SHORT).show();
+        });
+    }
+
+    private void handleUserDocument(DocumentSnapshot document, ViewOrder holder, DishesDTO currentDish) {
+        Boolean isAdmin = document.getBoolean("admin");
+        if (isAdmin != null && isAdmin) {
+            holder.CancelOrder.setVisibility(View.GONE);
+            holder.ConfirmOrder.setVisibility(View.VISIBLE);
+        } else {
+            fetchOrderStatusAndSetVisibility(holder, currentDish);
+            holder.ConfirmOrder.setVisibility(View.GONE);
+        }
+        setupAdminButtons(holder, currentDish);
+    }
+
+    private void fetchOrderStatusAndSetVisibility(ViewOrder holder, DishesDTO currentDish) {
+        db.collection("pedidos").document(currentDish.getUid()).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult() != null && task.getResult().exists()) {
+                String status = task.getResult().getString("status");
+                if ("pendente".equals(status)) {
+                    holder.CancelOrder.setVisibility(View.VISIBLE);
+                } else {
+                    holder.CancelOrder.setVisibility(View.GONE);
+                }
+            } else {
+                holder.CancelOrder.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setupAdminButtons(ViewOrder holder, DishesDTO currentDish) {

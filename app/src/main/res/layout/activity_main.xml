@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activitys.Main.MainActivity">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/main"
         android:layout_width="match_parent"
@@ -37,43 +39,25 @@
             android:id="@+id/imageView2"
             android:layout_width="411dp"
             android:layout_height="164dp"
-            android:background="@drawable/baselayoutdishesdetails" />
+            android:background="@drawable/baselayoutdishesdetails"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/imageButtonBusca"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageButtonBusca"
-            app:srcCompat="@android:drawable/ic_menu_add" />
 
         <Button
             android:id="@+id/imageButtonUsuario"
-            android:layout_width="174dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="4dp"
-            android:gravity="center_vertical|left"
             android:background="@color/transparente"
-            android:textColor="@color/white"
             android:drawableStart="@drawable/base_iconuser"
+            android:gravity="center_vertical|left"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/imageButtonBusca"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imageButtonUsuario"
-            app:layout_constraintTop_toBottomOf="@id/MainPrincipalViewPratos"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+
 
 
         <ImageView
@@ -161,13 +145,16 @@
             android:id="@+id/MainPrincipalViewCategory"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/button_stroke_gray"
+            android:gravity="center_vertical|left"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            tools:visibility="visible" />
+            tools:visibility="gone" />
 
         <TextView
             android:id="@+id/textView2"
@@ -181,5 +168,22 @@
             tools:visibility="invisible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
-</ScrollView>
+    <ImageButton
+        android:id="@+id/imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:visibility="visible"
+        android:layout_gravity="start|bottom"
+        app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <ImageButton
+        android:id="@+id/imageButtonBusca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/base_image_cart_oregan" />
+</FrameLayout>

@@ -7,12 +7,44 @@
     android:layout_height="match_parent"
     tools:context=".Activitys.Users.Profile.ProfileActivity">
 
+    <ImageView
+        android:id="@+id/BaseImageLogo"
+        android:layout_width="0dp"
+        android:layout_height="173dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/applogowhite" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="411dp"
+        android:layout_height="164dp"
+        android:background="@drawable/baselayoutdishesdetails"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="173dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/applogowhite" />
+
     <EditText
         android:id="@+id/ProfileNameShow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="412dp"
+        android:layout_marginTop="324dp"
+        android:layout_height="45dp"
+        android:background="@drawable/button_stroke"
+        android:paddingLeft="15dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="Nome completo"
@@ -20,12 +52,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <EditText
         android:id="@+id/ProfileAdressShow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:background="@drawable/button_stroke"
+        android:paddingLeft="15dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
@@ -39,7 +73,9 @@
     <EditText
         android:id="@+id/ProfileNumberShow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:background="@drawable/button_stroke"
+        android:paddingLeft="15dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
@@ -53,22 +89,27 @@
     <EditText
         android:id="@+id/ProfileBirthDateShow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:background="@drawable/button_stroke"
+        android:paddingLeft="15dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="8dp"
+        android:clickable="true"
         android:ems="10"
-        android:hint="Data de nascimento"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:focusable="false"
+        android:hint="Data"
+        android:inputType="none"
+        app:layout_constraintEnd_toStartOf="@+id/ProfileCepShow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProfileNumberShow" />
 
     <EditText
         android:id="@+id/ProfileCPFShow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
+        android:background="@drawable/button_stroke"
+        android:paddingLeft="15dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
@@ -84,8 +125,10 @@
     <EditText
         android:id="@+id/ProfileCepShow"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_height="45dp"
+        android:background="@drawable/button_stroke"
+        android:paddingLeft="15dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
         android:ems="10"
@@ -93,23 +136,23 @@
         android:inputType="number"
         android:maxLength="8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProfileCPFShow" />
+        app:layout_constraintStart_toEndOf="@+id/ProfileBirthDateShow"
+        app:layout_constraintTop_toBottomOf="@+id/ProfileNumberShow" />
 
     <Button
         android:id="@+id/ProfileButtonUpdateProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:text="ALTERAR"
+        android:background="@drawable/button_stroke_normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ProfileCepShow"
-        tools:visibility="gone" />
+        app:layout_constraintTop_toBottomOf="@+id/ProfileCPFShow"
+        tools:visibility="visible" />
 
     <ProgressBar
         android:id="@+id/ProfileProgressBar"
@@ -117,23 +160,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintTop_toBottomOf="@+id/ProfileButtonUpdateProfile"
         tools:layout_editor_absoluteX="177dp" />
 
     <ImageView
         android:id="@+id/imageButtonPerfil"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="256dp"
+        android:layout_height="256dp"
         android:layout_marginStart="64dp"
-        android:layout_marginTop="64dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="8dp"
         android:background="@drawable/baseimageforuser"
         app:layout_constraintBottom_toTopOf="@+id/ProfileNameShow"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
         tools:src="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/buttonLogout"
+        android:layout_width="35dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/button_logout"
+        android:padding="16dp"
+
+
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

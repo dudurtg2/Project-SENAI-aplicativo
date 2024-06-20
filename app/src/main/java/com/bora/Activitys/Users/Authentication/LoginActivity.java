@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void insertUserNoFirestore(FirebaseUser user) {
         UserDAO usuarioDAO = new UserDAO(this);
-        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Não informado", "Não informado", "Não informado", "Não informado", "Não informado");
+        usuarioDAO.userDTO("usuarios", user.getDisplayName(), "Endereco não informado", "Sem Telefone", "01/01/2000", "000.000.000-00", "00000-000");
 
         startActivity(new Intent(this, MainActivity.class));
         finish();
