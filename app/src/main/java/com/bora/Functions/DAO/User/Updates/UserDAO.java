@@ -22,12 +22,8 @@ public class UserDAO {
     }
 
     public Task<Void> userDTO(String table, String name, String address, String number, String birthDate, String cpf, String cep) {
-        if (birthDate.isEmpty()) {
-            birthDate = "Data de nascimento não informada";
-        }
-        if (cpf.isEmpty()) {
-            cpf = "CPF não informado";
-        }
+        if (birthDate.isEmpty()) { birthDate = "Data de nascimento não informada"; }
+        if (cpf.isEmpty()) { cpf = "CPF não informado"; }
         UserDTO userDTO = new UserDTO(name, address, number, birthDate, cpf, cep);
         return writeNewUser(table, userDTO);
     }
@@ -54,7 +50,6 @@ public class UserDAO {
                                 return null;
                             }
                         }
-
                         HashMap<String, Object> query = new HashMap<>();
                         query.put("admin", false);
                         query.put("nome", userDTO.getName());
@@ -70,7 +65,7 @@ public class UserDAO {
                     }
                     return null;
                 })
-                .addOnSuccessListener(aVoid -> { Toast.makeText(context, "Dados alterados com sucesso", Toast.LENGTH_SHORT).show(); })
-                .addOnFailureListener(e -> { Toast.makeText(context, "Erro ao salvar dados", Toast.LENGTH_SHORT).show(); });
+                .addOnSuccessListener(aVoid ->  Toast.makeText(context, "Dados alterados com sucesso", Toast.LENGTH_SHORT).show())
+                .addOnFailureListener(e -> Toast.makeText(context, "Erro ao salvar dados", Toast.LENGTH_SHORT).show());
     }
 }

@@ -125,11 +125,8 @@ public class DishDetailsActivity extends AppCompatActivity {
                     }
                 });
             }
-        }).addOnFailureListener(e -> {
-            Toast.makeText(this, "Erro ao buscar preço do prato: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-        }).addOnCompleteListener(task -> {
-            finish();
-        });
+        }).addOnFailureListener(e -> Toast.makeText(this, "Erro ao buscar preço do prato: " + e.getMessage(), Toast.LENGTH_SHORT).show())
+                .addOnCompleteListener(task ->  finish());
     }
 
     private void selectDish(String uid, String table) {
