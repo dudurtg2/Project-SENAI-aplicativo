@@ -39,4 +39,22 @@ Agradecemos por visitar nosso repositório e por seu interesse no nosso projeto.
 
 Se você tiver alguma dúvida ou sugestão, não hesite em abrir uma issue ou entrar em contato conosco.
 
-# **SENAI - Educação Profissionalizante para a Indústria**
+# **SENAI - Educação Profissionalizante para a Indústria** 
+
+# Telas
+## Telas de auteficação
+![Teslas de autentificação](https://github.com/dudurtg2/Project-SENAI-aplicativo/assets/83459496/a2414408-fc5a-4fb0-9d8b-dc76c8780ff9)
+
+## Telas de adm
+![Teslas de ADm](https://github.com/dudurtg2/Project-SENAI-aplicativo/assets/83459496/4bdb0fc7-e73a-439e-87d4-69f2f949a011)
+
+## Telas principal e perfil
+![Teslas de Main e user](https://github.com/dudurtg2/Project-SENAI-aplicativo/assets/83459496/138bed1c-6813-4379-b52a-91d404672142)
+
+## Telas de pedidos
+![Teslas de pedidos](https://github.com/dudurtg2/Project-SENAI-aplicativo/assets/83459496/19c09914-2e19-4601-808a-61b496c1eaeb)
+
+
+
+
+
